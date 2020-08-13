@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-toolbar app>
+  <v-toolbar >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>SGTCD - Palmira</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -10,12 +10,13 @@
     </v-toolbar>
     <v-navigation-drawer app v-model="drawer" temporary>
        <v-list>
-         <v-list-item>
+         <v-list-item @click="clickListItem('')">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
-
-          <v-list-item-title>Home</v-list-item-title>
+          <v-list-item-title>
+            <router-link tag="span" to="/">Home</router-link>
+          </v-list-item-title>
         </v-list-item>
           <v-list-group
             v-for="item in items"
@@ -33,7 +34,7 @@
             <v-list-item
               v-for="subItem in item.comunas"
               :key="subItem.title"
-              @click=""
+              @click="clickListItem"
             >
               <v-list-item-content>
                 <v-list-item-title v-text="subItem.title"></v-list-item-title>
@@ -42,12 +43,14 @@
           </v-list-group>
         </v-list>
 
-        <v-list-item>
+        <v-list-item  @click="clickListItem('Test')">
           <v-list-item-icon>
             <v-icon>mdi-information-outline</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-title>More info</v-list-item-title>
+          <v-list-item-title>
+            More Info
+          </v-list-item-title>
         </v-list-item>
     </v-navigation-drawer>
 </div>
@@ -78,7 +81,12 @@ export default {
 
       ]
     }
-  }
+  },
+  methods: {
+    clickListItem(path){
+      this.$router.push({path: '/'+path});
+    }
+  },
 }
 </script>
 
