@@ -9,16 +9,46 @@
 
     </v-toolbar>
     <v-navigation-drawer app v-model="drawer" temporary>
-      <v-layout mt-4 column align-center>
-        <v-flex><p class="mt-3">Comuna 2</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 3</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 1</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 4</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 5</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 6</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 7</p> </v-flex>
-        <v-flex><p class="mt-3">Comuna 8</p> </v-flex>
-      </v-layout>
+       <v-list>
+         <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+          <v-list-group
+            v-for="item in items"
+            :key="item.title"
+            v-model="item.active"
+            prepend-icon= "mdi-account-group"
+            no-action
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+
+            <v-list-item
+              v-for="subItem in item.comunas"
+              :key="subItem.title"
+              @click=""
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="subItem.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
+
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-information-outline</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>More info</v-list-item-title>
+        </v-list-item>
     </v-navigation-drawer>
 </div>
 
@@ -30,7 +60,23 @@ export default {
   name: "Toolbar",
   data() {
     return{
-      drawer: false
+      drawer: false,
+      items: [
+          {
+            title: 'Comunas',
+            comunas: [
+              { title: 'Comuna 1' },
+              { title: 'Comuna 2' },
+              { title: 'Comuna 3' },
+              { title: 'Comuna 4' },
+              { title: 'Comuna 5' },
+              { title: 'Comuna 6' },
+              { title: 'Comuna 7' },
+              { title: 'Comuna 8' },
+            ],
+          },
+
+      ]
     }
   }
 }
