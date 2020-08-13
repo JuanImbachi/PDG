@@ -4,7 +4,6 @@
         <toolbar></toolbar>
           <router-view></router-view>
         </div>
-      </div>
   </v-app>
 </template>
 
