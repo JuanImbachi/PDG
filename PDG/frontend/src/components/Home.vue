@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <v-carousel>
+      <v-carousel height="auto">
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -21,10 +21,10 @@ export default {
             src: require('../assets/1.png'),
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: require('../assets/2.png'),
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: require('../assets/3.png'),
           },
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
@@ -39,7 +39,6 @@ export default {
 
 .container {
     margin-top : 4%;
-
 }
 
 </style>
