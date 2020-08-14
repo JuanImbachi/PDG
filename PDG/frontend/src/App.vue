@@ -1,20 +1,20 @@
 <template>
   <v-app>
     <div>
-        <toolbar></toolbar>
-          <router-view></router-view>
-        </div>
+        <appbar></appbar>
+        <router-view></router-view>
+    </div>
   </v-app>
 </template>
 
 <script>
-import Toolbar from './components/Toolbar';
+import Appbar from './components/Appbar';
 
 export default {
   name: 'App',
 
   components: {
-    Toolbar,
+    Appbar,
   },
 
   data: () => ({
