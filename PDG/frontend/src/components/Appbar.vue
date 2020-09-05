@@ -34,7 +34,7 @@
               <v-list-item
                 v-for="subItem in item.comunas"
                 :key="subItem.title"
-                @click="clickListItem"
+                @click="clickListItem('comuna/' + subItem.id)"
               >
                 <v-list-item-content>
                   <v-list-item-title v-text="subItem.title"></v-list-item-title>
@@ -67,14 +67,14 @@ export default {
           {
             title: 'Comunas',
             comunas: [
-              { title: 'Comuna 1' },
-              { title: 'Comuna 2' },
-              { title: 'Comuna 3' },
-              { title: 'Comuna 4' },
-              { title: 'Comuna 5' },
-              { title: 'Comuna 6' },
-              { title: 'Comuna 7' },
-              { title: 'Comuna 8' },
+              { title: 'Comuna 1', id: 1 },
+              { title: 'Comuna 2', id: 2 },
+              { title: 'Comuna 3', id: 3 },
+              { title: 'Comuna 4', id: 4 },
+              { title: 'Comuna 5', id: 5 },
+              { title: 'Comuna 6', id: 6 },
+              { title: 'Comuna 7', id: 7 },
+              { title: 'Comuna 8', id: 8 },
             ],
           },
 

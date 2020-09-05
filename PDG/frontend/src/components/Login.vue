@@ -50,7 +50,7 @@
 
 </script>
 
-<style>
+<style scoped>
 
 .container {
     background-color: white;
