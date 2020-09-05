@@ -28,7 +28,6 @@
                     prepend-icon="mdi-email"
                     type="email"
                   ></v-text-field>
-
                   <v-text-field
                     id="password"
                     label="Contraseña"
