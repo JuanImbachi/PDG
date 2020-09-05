@@ -1,7 +1,5 @@
 <template>
-      <v-container
-        class="fill-height"
-      >
+      <v-container >
         <v-row
           align="center"
           justify="center"
@@ -17,7 +15,7 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Accede como administrador</v-toolbar-title>
+                <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
@@ -56,7 +54,6 @@
 
 .container {
     background-color: white;
-    margin-top: 14.5%;
 }
 
 </style>

@@ -4,8 +4,8 @@
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>SGTCD - Palmira</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn class="mx-2"> Sign In </v-btn>
-        <v-btn class="mx-2" color="primary"> Sign Up </v-btn>
+        <v-btn class="mx-2"> <v-icon left>mdi-account-plus-outline</v-icon>Sign Up </v-btn>
+        <v-btn class="mx-2" color="primary" > <v-icon left>mdi-login</v-icon> Log In </v-btn>
     </v-app-bar>
 
       <v-navigation-drawer app v-model="drawer" temporary>
