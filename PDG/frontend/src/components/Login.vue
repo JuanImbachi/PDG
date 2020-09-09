@@ -37,7 +37,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Iniciar sesión</v-btn>
+                <v-btn color="primary" @click="login">Iniciar sesión</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -46,7 +46,22 @@
 </template>
 
 <script>
+import axios from 'axios'
+export default {
+  components: {
 
+  },
+  methods: {
+    login() {
+      axios.post('http://127.0.0.1:8000/auth/', {
+        username: this.username,
+        password: this.password,
+      })
+      .then(resp => console.log('it works!'))
+      .catch(err => console.log(err))
+    }
+  }
+}
 </script>
 
 <style scoped>
