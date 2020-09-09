@@ -2,13 +2,9 @@
   <div class="ownAppbar">
     <v-app-bar app >
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-<<<<<<< HEAD
         <v-toolbar-title>
           <router-link tag="span" to="/" style="cursor:pointer"> SGTCD - Palmira </router-link>
         </v-toolbar-title>
-=======
-        <v-toolbar-title to="/">SGTCD - Palmira</v-toolbar-title>
->>>>>>> 706ed1d27511932042d15162bdedb7f278e6afb2
         <v-spacer></v-spacer>
         <v-btn class="mx-2"> <v-icon left>mdi-account-plus-outline</v-icon>Sign Up </v-btn>
         <v-btn class="mx-2" to="/login" color="primary" > <v-icon left>mdi-login</v-icon> Log In </v-btn>
