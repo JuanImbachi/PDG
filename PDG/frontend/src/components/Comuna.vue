@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="comunaContainer">
-      <h1>This is the comuna {{id}}</h1>
+      <h1>This is the comuna {{ getComunaId() }}</h1>
 
     </div>
   </v-container>
@@ -16,13 +16,11 @@ export default {
    },
    methods: {
      getComunaId(){
-       this.id = this.$route.params.id;
-
+       this.id = this.$route.params.id
+       return this.id;
      }
    },
-   created() {
-     this.getComunaId();
-   },
+
 }
 </script>
 
