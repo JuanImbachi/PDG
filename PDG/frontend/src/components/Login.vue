@@ -21,17 +21,21 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
+                    v-model="email"
                     label="Correo electrónico"
-                    name="login"
+                    name="email"
                     prepend-icon="mdi-email"
                     type="email"
+                    required
                   ></v-text-field>
                   <v-text-field
+                    v-model="password"
                     id="password"
                     label="Contraseña"
                     name="password"
                     prepend-icon="mdi-lock"
                     type="password"
+                    required
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -51,10 +55,16 @@ export default {
   components: {
 
   },
+  data(){
+    return {
+      email: '',
+      password: ''
+    }
+  },
   methods: {
     login() {
       axios.post('http://127.0.0.1:8000/auth/', {
-        username: this.username,
+        email: this.email,
         password: this.password,
       })
       .then(resp => console.log('it works!'))
