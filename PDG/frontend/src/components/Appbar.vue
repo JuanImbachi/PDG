@@ -6,7 +6,7 @@
           <router-link tag="span" to="/" style="cursor:pointer"> SGTCD - Palmira </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn class="mx-2"> <v-icon left>mdi-account-plus-outline</v-icon>Sign Up </v-btn>
+        <v-btn class="mx-2"> <v-icon left>mdi-account-plus-outline</v-icon>New Register </v-btn>
         <v-btn class="mx-2" to="/login" color="primary" > <v-icon left>mdi-login</v-icon> Log In </v-btn>
     </v-app-bar>
 
@@ -76,7 +76,6 @@ export default {
               { title: 'Comuna 5', id: 5 },
               { title: 'Comuna 6', id: 6 },
               { title: 'Comuna 7', id: 7 },
-              { title: 'Comuna 8', id: 8 },
             ],
           },
 

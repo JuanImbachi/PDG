@@ -24,9 +24,6 @@ export default {
           {
             src: require('../assets/3.png'),
           },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
         ],
       }
     },
