@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container class="white">
         <div style="display: flex; align-items: center; justify-content: space-between">
             <div class="left">
                 <h1>Your coordinates:</h1>
@@ -16,7 +16,7 @@
             style="width:640px; height:360px; margin: 32px auto;"
             ref="mapRef"
         ></google-map>
-    </div>
+    </v-container>
 </template>
 
 <script>

@@ -2,21 +2,19 @@
   <v-app>
     <div>
         <appbar></appbar>
-        <!-- <router-view></router-view> -->
-        <Map/>
+        <router-view></router-view>
     </div>
   </v-app>
 </template>
 
 <script>
 import Appbar from './components/Appbar';
-import Map from './components/Map';
 
 export default {
   name: 'App',
 
   components: {
-    Appbar, Map
+    Appbar
   },
 
   data: () => ({

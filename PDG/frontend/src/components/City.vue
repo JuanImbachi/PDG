@@ -30,34 +30,16 @@
       </v-row>
     </v-container>
 
-    <v-container class="grey lighten-1">
-      <v-row
-        no-gutters
-        style="height: 150px;"
-        align="center"
-        justify="center"
-      >
-        <v-col class="pa-2">
-          <v-card
-            class="pa-2 text-center"
-            outlined
-            tile
-          >
-       
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <map-component></map-component>
   </v-container>
 </template>
 
 <script>
-
-
+import MapGoogle from './Map';
 
 export default {
    components: {
-     Map
+     mapComponent: MapGoogle,
    },
    data() {
      return {
