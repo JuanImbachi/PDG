@@ -6,8 +6,8 @@
           <router-link tag="span" to="/" style="cursor:pointer"> SGTCD - Palmira </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn class="mx-2"> <v-icon left>mdi-account-plus-outline</v-icon>New Register </v-btn>
-        <v-btn class="mx-2" to="/login" color="primary" > <v-icon left>mdi-login</v-icon> Log In </v-btn>
+        <v-btn class="mx-2" v-if="false"> <v-icon left>mdi-account-plus-outline</v-icon>New Register </v-btn>
+        <v-btn class="pa-4" to="/login" color="primary" small outlined > <v-icon left >mdi-login</v-icon> Iniciar Sesión </v-btn>
     </v-app-bar>
 
       <v-navigation-drawer app v-model="drawer" temporary>
@@ -70,10 +70,10 @@ export default {
             title: 'Municipios',
             comunas: [
               { title: 'Buga'},
-              { title: 'Yopal'},
+              { title: 'Cali'},
               { title: 'Girón'},
               { title: 'Palmira'},
-              { title: 'Cali'},
+              { title: 'Yopal'},
             ],
           },
 

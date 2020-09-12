@@ -5,7 +5,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn class="mt-2" outlined color="indigo">
+      <v-btn class="mt-2" outlined color="primary">
         <v-icon left>mdi-cog</v-icon>
         Settings
       </v-btn>

@@ -15,7 +15,7 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Login</v-toolbar-title>
+                <v-toolbar-title>Iniciar Sesión</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
@@ -63,12 +63,13 @@ export default {
   },
   methods: {
     login() {
-      axios.post('http://127.0.0.1:8000/auth/', {
-        email: this.email,
-        password: this.password,
-      })
-      .then(resp => console.log('it works!'))
-      .catch(err => console.log(err))
+      console.log(this.email +" - "+ this.password)
+    //   axios.post('http://127.0.0.1:8000/auth/', {
+    //     email: this.email,
+    //     password: this.password,
+    //   })
+    //   .then(resp => console.log('it works!'))
+    //   .catch(err => console.log(err))
     }
   }
 }
