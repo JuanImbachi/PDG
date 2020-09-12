@@ -43,7 +43,7 @@
             outlined
             tile
           >
-            Map of the city
+       
           </v-card>
         </v-col>
       </v-row>
@@ -52,7 +52,13 @@
 </template>
 
 <script>
+
+
+
 export default {
+   components: {
+     Map
+   },
    data() {
      return {
        id: "",
