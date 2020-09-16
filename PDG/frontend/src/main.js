@@ -1,13 +1,23 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import router from './routes/router'
 import vuetify from './plugins/vuetify';
+import VueGeolocation from 'vue-browser-geolocation'
 
 Vue.config.productionTip = false
+Vue.use(VueGeolocation)
 
-/* eslint-disable no-new */
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c'
+  },
+  installComponents: false
+})
+
+Vue.component('google-map', VueGoogleMaps.Map);
+
 new Vue({
   el: '#app',
   router,
