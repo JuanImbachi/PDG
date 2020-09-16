@@ -1,19 +1,9 @@
 <template>
-    <v-container class="white">
-        <div style="display: flex; align-items: center; justify-content: space-between">
-            <div class="left">
-                <h1>Your coordinates:</h1>
-                <p>{{myCoordinates.lat}} Latitude, {{myCoordinates.lng}} Longitude</p>
-            </div>
-            <div class="right">
-                <h1>Map coordinates:</h1>
-                <p>{{mapCoordinates.lat}} Latitude, {{mapCoordinates.lng}} Longitude</p>
-            </div>
-        </div>
+    <v-container>
         <google-map
             :center="myCoordinates"
-            :zoom="13"
-            style="width:640px; height:360px; margin: 32px auto;"
+            :zoom="zoomCt"
+            style="width:auto; height:25em; margin: 32px auto; border: white 3px inset;"
             ref="mapRef"
         ></google-map>
     </v-container>
@@ -21,23 +11,25 @@
 
 <script>
     export default {
+      props: ["coordinates", "cityZoom"],
         data(){
             return {
                 map: null,
                 myCoordinates: {
                     lat: 0,
                     lng: 0
-                }
+                },
+                zoomCt: 13
             }
         },
         created() {
-            this.$getLocation({})
-                .then(coordinates => {
-                    this.myCoordinates = coordinates;
-                })
-                .catch(error => alert(error));
+
+          this.myCoordinates = this.coordinates;
+          this.zoomCt = this.cityZoom;
+
         },
         mounted() {
+
             this.$refs.mapRef.$mapPromise.then(map => this.map = map);
         },
         computed: {
@@ -53,6 +45,12 @@
                     lng: this.map.getCenter().lng().toFixed(4)
                 }
             }
+        },
+        watch:{
+          coordinates(){
+            this.myCoordinates = this.coordinates;
+            this.zoomCt = this.cityZoom;
+          }
         }
     }
 </script>
@@ -65,5 +63,6 @@
     .right {
         margin-right: 10%;
         text-align:center;
+
     }
 </style>

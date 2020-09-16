@@ -9,10 +9,9 @@
             sm="8"
             md="4"
           >
-            <v-card class="elevation-12">
+            <v-card class="elevation-12 transparent">
               <v-toolbar
-                color="primary"
-                dark
+                class="grey darken-3 white--text"
                 flat
               >
                 <v-toolbar-title>Iniciar Sesión</v-toolbar-title>
@@ -41,7 +40,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="login">Iniciar sesión</v-btn>
+                <v-btn color="transparent " @click="login">Iniciar sesión</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -77,8 +76,6 @@ export default {
 
 <style scoped>
 
-.container {
-    background-color: white;
-}
+
 
 </style>

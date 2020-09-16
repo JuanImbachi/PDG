@@ -1,23 +1,23 @@
 <template>
   <div class="ownAppbar">
-    <v-app-bar app >
-        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar app dark>
+        <v-app-bar-nav-icon style="font=white" @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>
-          <router-link tag="span" to="/" style="cursor:pointer"> SGTCD - Palmira </router-link>
+          <router-link tag="span" to="/" style="cursor:pointer"> Dengue - Seguimiento de Casos </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn class="mx-2" v-if="false"> <v-icon left>mdi-account-plus-outline</v-icon>New Register </v-btn>
-        <v-btn class="pa-4" to="/login" color="primary" small outlined > <v-icon left >mdi-login</v-icon> Iniciar Sesión </v-btn>
+        <v-btn class="pa-4" to="/login"  small outlined dark> Iniciar Sesión <v-icon right >mdi-account-lock</v-icon> </v-btn>
     </v-app-bar>
 
-      <v-navigation-drawer app v-model="drawer" temporary>
-        <v-list>
-          <v-list-item @click="clickListItem('')">
+      <v-navigation-drawer app v-model="drawer" temporary dark>
+        <v-list >
+          <v-list-item :to="'/'">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
             <v-list-item-title>
-              <router-link tag="span" to="/">Home</router-link>
+               <router-link tag="span" to="/" style="cursor:pointer">Inicio</router-link>
             </v-list-item-title>
           </v-list-item>
             <v-list-group
@@ -27,31 +27,31 @@
               prepend-icon= "mdi-account-group"
               no-action
             >
-              <template v-slot:activator>
+              <template v-slot:activator >
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title"></v-list-item-title>
                 </v-list-item-content>
               </template>
 
               <v-list-item
-                v-for="subItem in item.comunas"
+                v-for="subItem in item.cities"
                 :key="subItem.title"
-                @click="clickListItem(subItem.title)"
+                :to="'/city/'+subItem.title"
               >
                 <v-list-item-content>
-                  <v-list-item-title v-text="subItem.title"></v-list-item-title>
+                  <router-link v-bind:to="'/city/'+subItem.title" tag="span">{{subItem.title}}</router-link>
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
           </v-list>
 
-          <v-list-item  @click="clickListItem('Test')">
+          <v-list-item :to="'/test'">
             <v-list-item-icon>
               <v-icon>mdi-information-outline</v-icon>
             </v-list-item-icon>
 
             <v-list-item-title>
-              More Info
+              Info
             </v-list-item-title>
           </v-list-item>
       </v-navigation-drawer>
@@ -67,8 +67,8 @@ export default {
       drawer: false,
       items: [
           {
-            title: 'Municipios',
-            comunas: [
+            title: 'Ciudades',
+            cities: [
               { title: 'Buga'},
               { title: 'Cali'},
               { title: 'Girón'},
@@ -81,9 +81,7 @@ export default {
     }
   },
   methods: {
-    clickListItem(path){
-      this.$router.push({path: '/'+path});
-    }
+
   },
 }
 </script>

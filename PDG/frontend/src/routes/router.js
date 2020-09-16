@@ -12,6 +12,6 @@ export default new Router({
     {path: '/', component: Home},
     {path: '/test', component: Test},
     {path:'/login', component: Login},
-    {path:'/:id', component: City}
+    {path:'/city/:id', component: City}
   ]
 });
