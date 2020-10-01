@@ -1,11 +1,9 @@
 <template>
-      <v-container >
+      <v-container class="mt-16">
         <v-row
-          align="center"
           justify="center"
         >
           <v-col
-            cols="12"
             sm="8"
             md="4"
           >
@@ -40,7 +38,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="transparent " @click="login">Iniciar sesión</v-btn>
+                <v-btn color="transparent" @click="login">Iniciar sesión</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

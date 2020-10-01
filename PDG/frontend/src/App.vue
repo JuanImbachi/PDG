@@ -6,7 +6,7 @@
       <router-view></router-view>
     </v-main>
 
-    <v-footer absolute padless>
+    <v-footer  padless>
       <v-card class="flex" flat tile>
         <v-card-text class="py-2  text-center">
             {{ new Date().getFullYear() }} — <strong>Universidad Icesi</strong>
