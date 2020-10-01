@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../components/Home'
-import Test from '../components/Test'
+import Data from '../components/Data'
 import Login from '../components/Login'
-import City from '../components/City'
+import Prediction from '../components/Prediction'
 Vue.use(Router);
 
 export default new Router({
   mode : 'history',
   routes: [
     {path: '/', component: Home},
-    {path: '/test', component: Test},
+    {path: '/data', component: Data},
     {path:'/login', component: Login},
-    {path:'/city/:id', component: City}
+    {path:'/predictions', component: Prediction}
   ]
 });

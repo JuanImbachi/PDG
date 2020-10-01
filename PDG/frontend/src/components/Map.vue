@@ -1,12 +1,8 @@
 <template>
-    <v-container>
-        <google-map
-            :center="myCoordinates"
-            :zoom="zoomCt"
-            style="width:auto; height:25em; margin: 32px auto; border: white 3px inset;"
-            ref="mapRef"
-        ></google-map>
-    </v-container>
+  <v-container>
+      <vue-google-heatmap :points="points" :height="450" />
+  </v-container>
+
 </template>
 
 <script>
@@ -19,7 +15,22 @@
                     lat: 0,
                     lng: 0
                 },
-                zoomCt: 13
+                zoomCt: 13,
+                points: [
+                  {lat: 37.786117, lng:-122.440119},
+                  {lat: 37.786564, lng:-122.440209},
+                  {lat: 37.786905, lng:-122.440270},
+                  {lat: 37.786956, lng:-122.440279},
+                  {lat: 37.800224, lng:-122.433520},
+                  {lat: 37.800155, lng:-122.434101},
+                  {lat: 37.800160, lng:-122.434430},
+                  {lat: 37.800378, lng:-122.434527},
+                  {lat: 37.800738, lng:-122.434598},
+                  {lat: 37.800938, lng:-122.434650},
+                  {lat: 37.801024, lng:-122.434889},
+                  {lat: 37.800955, lng:-122.435392},
+                  {lat: 37.800886, lng:-122.435959}
+                ]
             }
         },
         created() {
@@ -28,10 +39,7 @@
           this.zoomCt = this.cityZoom;
 
         },
-        mounted() {
 
-            this.$refs.mapRef.$mapPromise.then(map => this.map = map);
-        },
         computed: {
             mapCoordinates() {
                 if(!this.map) {
@@ -55,14 +63,14 @@
     }
 </script>
 
-<style>
-    .left {
-        margin-left: 10%;
-        text-align:center;
-    }
-    .right {
-        margin-right: 10%;
-        text-align:center;
-
-    }
+<style scoped>
+html, body, .container,  #map {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    position: relative;
+}
 </style>

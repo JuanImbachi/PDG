@@ -1,41 +1,5 @@
 <template>
-  <v-container>
-    <v-row class="pa-1">
-      <v-col cols="1">
-        <v-btn class="mt-2" outlined color="black" @click="modal=!modal">
-                <v-icon left>mdi-cog</v-icon>
-                Opciones
-        </v-btn>
-      </v-col>
-      <v-col align="center" cols="11">
-       <h1 alig>  {{ id }}</h1>
-      </v-col>
-    </v-row>
-
-    <v-dialog
-      ref="dialog"
-      v-model="modal"
-      height="35%"
-      width="35%"
-    >
-      <v-card>
-        <v-card-title>
-          <h1 class="headline"> Opciones de Predicción</h1>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-
-            <h4>¡Disponible en la siguiente versión de la aplicación!</h4>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="black" outlined @click="modal = false">Cerrar</v-btn>
-          <v-btn color="black" outlined @click="modal = false">Guardar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
+  <v-container class="my-5">
       <v-row
         no-gutters
         align="center"
@@ -76,7 +40,6 @@ export default {
         lng : 0
       },
       cz : 0,
-      modal : false,
       src: require('../assets/download.png'),
      }
    },

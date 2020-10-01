@@ -1,29 +1,29 @@
 <template>
-  <div>
-    <h1>as</h1>
-    <v-footer
-      absolute
-      class="font-weight-medium"
-    >
-      <v-col
-        class="text-center"
-        cols="12"
+   <v-footer
+        absolute
+        padless
+        dark
+        class="mt-2"
       >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-col>
+      <v-card
+          class="flex"
+          flat
+          tile
+        >
+        <v-card-text class="py-2 white--text text-center">
+            {{ new Date().getFullYear() }} — <strong>Universidad Icesi</strong>
+          </v-card-text>
+        </v-card>
     </v-footer>
-  </div>
-
 </template>
 
 <script>
 export default {
   name: "Footer",
-  data() {
-    return {
-
+    data() {
+      return{
+      }
     }
-  },
 }
 </script>
 

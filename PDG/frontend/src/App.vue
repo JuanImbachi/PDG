@@ -1,32 +1,27 @@
 <template>
   <v-app>
-    <div>
-        <appbar></appbar>
-        <router-view></router-view>
-        <v-footer
-          absolute
-          padless
-          dark
-        >
-          <v-col
-            class="text-center"
-            cols="12"
-          >
-            {{ new Date().getFullYear() }} — <strong>Icesi</strong>
-          </v-col>
-        </v-footer>
-    </div>
+    <navbar />
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+    <v-footer absolute padless>
+      <v-card class="flex" flat tile>
+        <v-card-text class="py-2  text-center">
+            {{ new Date().getFullYear() }} — <strong>Universidad Icesi</strong>
+          </v-card-text>
+        </v-card>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import Appbar from './components/Appbar';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer'
 export default {
   name: 'App',
 
   components: {
-    Appbar,
+    Navbar,
     Footer
   },
 
@@ -38,10 +33,4 @@ export default {
 
 <style>
 
-  .v-application--wrap{
-    background-attachment: fixed;
-    background-position: center center;
-    background-size: cover;
-    background-image: url("assets/bg.jpg");
-  }
 </style>
