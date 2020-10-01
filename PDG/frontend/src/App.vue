@@ -1,9 +1,11 @@
 <template>
   <v-app>
     <navbar />
+
     <v-main>
       <router-view></router-view>
     </v-main>
+
     <v-footer absolute padless>
       <v-card class="flex" flat tile>
         <v-card-text class="py-2  text-center">

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container mt-12>
       <v-carousel hide-delimiters>
       <v-carousel-item
         v-for="(item,i) in items"

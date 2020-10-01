@@ -1,6 +1,5 @@
 <template>
-
-    <v-app-bar dark >
+    <v-app-bar app dark dense>
         <v-toolbar-title>
           <router-link tag="span" to="/" style="cursor:pointer">SEGUIMIENTO DE CASOS DE DENGUE</router-link>
         </v-toolbar-title>
