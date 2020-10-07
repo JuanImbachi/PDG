@@ -2,7 +2,7 @@
   <div class="mx-16 mb-4">
     <v-container fluid>
       <v-row justify="space-around" dense class="ma-0">
-        <v-col >
+        <v-col>
           <v-card>
             <v-col cols="12" >
               <div class="subtitle-2 grey--text">OPCIONES DE PREDICCIÓN</div>
