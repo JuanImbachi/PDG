@@ -16,29 +16,31 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form ref="form" v-model="valid">
                   <v-text-field
-                    v-model="email"
-                    label="Correo electrónico"
-                    name="email"
-                    prepend-icon="mdi-email"
-                    type="email"
-                    required
+                      label="E-mail"
+                      prepend-icon="mdi-account"
+                      type="text"
+                      v-model="email"
+                      required
+                      :rules="emailRules"
                   ></v-text-field>
+
                   <v-text-field
-                    v-model="password"
-                    id="password"
-                    label="Contraseña"
-                    name="password"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                    required
+                      v-model="password"
+                      :append-icon="showpassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showpassword ? 'text' : 'password'"
+                      label="Contraseña"
+                      @click:append="showpassword = !showpassword"
+                      prepend-icon="mdi-lock"
+                      required
+                      :rules="[v => (v!=='') || 'Contraseña requerida']"
                   ></v-text-field>
-                </v-form>
-              </v-card-text>
+                  </v-form>
+                </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="transparent" @click="login">Iniciar sesión</v-btn>
+                <v-btn color="transparent" @click="submit">Iniciar sesión</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -55,7 +57,14 @@ export default {
   data(){
     return {
       email: '',
-      password: ''
+      password: '',
+      valid: true,
+      showpassword: false,
+      emailRules:
+            [
+                email => !!email || "E-mail requerido",
+                email => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email) || "E-mail inválido"
+            ]
     }
   },
   methods: {
@@ -67,7 +76,19 @@ export default {
     //   })
     //   .then(resp => console.log('it works!'))
     //   .catch(err => console.log(err))
-    }
+    },
+
+    validateForm () {
+      this.$refs.form.validate()
+    },
+    submit () {
+      this.validateForm()
+      if(this.valid){
+        console.log(this.email, this.password)
+      }else{
+        console.log("F")
+      }
+    },
   }
 }
 </script>
