@@ -4,6 +4,9 @@ import Home from '../components/Home'
 import Data from '../components/Data'
 import Login from '../components/Login'
 import Prediction from '../components/Prediction'
+import DengueCases from '../components/DengueCases'
+import NewDengueCaseForm from '../components/NewDengueCaseForm'
+
 Vue.use(Router);
 
 export default new Router({
@@ -12,6 +15,8 @@ export default new Router({
     {path: '/', component: Home},
     {path: '/data', component: Data},
     {path:'/login', component: Login},
-    {path:'/predictions', component: Prediction}
+    {path:'/predictions', component: Prediction},
+    {path:'/dengueCases', component: DengueCases},
+    {path:'/newCase', component: NewDengueCaseForm},
   ]
 });
