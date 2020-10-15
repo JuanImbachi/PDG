@@ -15,9 +15,9 @@
         <v-toolbar-title>Casos Históricos de Dengue</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-dialog v-model="modal" :persistent="true">
-          <NewDengueCaseForm v-if="add"  @notifyNewAppointment="refresh" @notifyNewAppointmentStatus="showNewAppointmentStatus" @closeAppointmentForm="closeAppointmentForm"></NewDengueCaseForm>
+          <NewDengueCaseForm  v-if="modal" @notifyNewAppointment="refresh" @notifyNewAppointmentStatus="showNewAppointmentStatus" @closeAppointmentForm="closeAppointmentForm"></NewDengueCaseForm>
         </v-dialog>
-        <v-btn rounded @click="modal=!modal"><v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn rounded @click="modal=!modal"><v-icon left>mdi-plus</v-icon>Agregar Caso</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -41,15 +41,47 @@ import NewDengueCaseForm from './NewDengueCaseForm'
 export default {
   data() {
     return {
-      cases: [],
+      cases: ['1'],
       search: '',
       modal: false
     }
   },
   components:
-    {
-      NewDengueCaseForm
+  {
+    NewDengueCaseForm
+  },
+    computed: {
+      headers () {
+        return [
+          {
+          text: "Date",
+          sortable: true,
+          value: "date",
+          align: "center"
+          },
+          {
+            text: 'Assigned_to',
+            sortable: true,
+            value: 'assigned_to.fullname',
+            align: 'center'
+          },
+          {
+            text: 'Pet',
+            sortable: true,
+            value: 'pet.name',
+            align: 'center'
+          },
+          {
+            text: 'Services',
+            sortable: true,
+            value: 'service.name',
+            align: 'center'
+          },
+          { text: "", value: "actions", sortable: false, align: "center" }
+        ]
+      },
     },
+
 }
 </script>
 

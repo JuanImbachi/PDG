@@ -2,24 +2,26 @@
   <v-container>
     <v-card>
       <v-card-title>
-        Nuevo Caso de Dengue
+        Registrar Nuevo Caso
       </v-card-title>
       <v-card-text>
 
-    <v-form>
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+      >
       <v-select
-      v-model="selectMonth"
-      :items="months"
+      v-model="city"
+      :items="cities"
       :rules="[v => !!v || 'Item is required']"
-      label="Mes Ocurrencia"
+      label="Ciudad"
       required
-    ></v-select>
-
-    <v-menu
+      ></v-select>
+      <v-menu
           ref="menu"
           v-model="menu"
           :close-on-content-click="false"
-          :return-value.sync="date"
           transition="scale-transition"
           offset-y
           min-width="290px"
@@ -28,6 +30,7 @@
             <v-combobox
               v-model="date"
               label="Fecha de Notificación"
+              :rules="[v => !!v || 'Item is required']"
               prepend-icon="mdi-calendar"
               readonly
               v-bind="attrs"
@@ -38,7 +41,7 @@
             v-model="date"
             no-title
             scrollable
-          >
+            >
             <v-spacer></v-spacer>
             <v-btn
               text
@@ -56,9 +59,48 @@
             </v-btn>
           </v-date-picker>
         </v-menu>
-    </v-form>
-          </v-card-text>
+        <v-text-field
+          v-model="age"
+          :rules="[v => !!v || 'Age is required']"
+          label="Edad"
+          required
+          type="number"
+          min=0
+        ></v-text-field>
+        <v-select
+          v-model="neighborhood"
+          :items="neighborhoods"
+          :rules="[v => !!v || 'Item is required']"
+          label="Barrio"
+          required
+        ></v-select>
+        <v-select
+          v-model="gender"
+          :items="genders"
+          :rules="[v => !!v || 'Item is required']"
+          label="Género"
+          required
+        ></v-select>
+      </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          Guardar
+        </v-btn>
 
+        <v-btn
+          color="error"
+          class="mr-4"
+          @click="reset"
+        >
+          Cancelar
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -67,10 +109,27 @@
 export default {
   data() {
     return {
+      menu: false,
+      valid: true,
       months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      cities: ['Buga', 'Yopal', 'Girón'],
+      genders: ['Femenino', 'Masculino'],
+      city: '',
       date: '',
+      age: '',
+      neighborhood: '',
+      gender: '',
     }
   },
+  methods: {
+    validate () {
+        this.$refs.form.validate()
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+  },
+
 }
 </script>
 

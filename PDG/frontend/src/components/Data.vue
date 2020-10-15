@@ -225,9 +225,7 @@ export default {
       months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       cities: [
               { name: 'Buga', position: {lat: 3.9, lng: -76.3}, zoom: 13.5},
-              { name: 'Cali', position: {lat: 3.42158, lng: -76.5205}, zoom: 12},
               { name: 'Girón', position: {lat: 7.067, lng: -73.167}, zoom: 14},
-              { name: 'Palmira', position: {lat: 3.5307, lng: -76.2961}, zoom: 13},
               { name: 'Yopal', position: {lat: 5.3307, lng: -72.3951}, zoom: 13},
       ],
       years: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
