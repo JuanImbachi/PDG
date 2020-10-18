@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>
+      <v-card-title class="grey darken-4 white--text">
         Registrar Nuevo Caso
       </v-card-title>
       <v-card-text>
@@ -84,6 +84,7 @@
       </v-form>
       </v-card-text>
       <v-card-actions>
+        <v-spacer></v-spacer>
         <v-btn
           :disabled="!valid"
           color="success"
@@ -96,7 +97,7 @@
         <v-btn
           color="error"
           class="mr-4"
-          @click="reset"
+          @click="cancel"
         >
           Cancelar
         </v-btn>
@@ -114,6 +115,7 @@ export default {
       months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       cities: ['Buga', 'Yopal', 'Girón'],
       genders: ['Femenino', 'Masculino'],
+      neighborhoods: ['Mercedes'],
       city: '',
       date: '',
       age: '',
@@ -123,11 +125,18 @@ export default {
   },
   methods: {
     validate () {
-        this.$refs.form.validate()
+        if(this.$refs.form.validate()){
+          alert("valid")
+        }
       },
       reset () {
         this.$refs.form.reset()
       },
+
+      cancel () {
+        this.reset()
+        this.$emit("closeAppointmentForm")
+      }
   },
 
 }

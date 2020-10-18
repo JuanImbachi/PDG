@@ -16,7 +16,7 @@ export default new Router({
     {path: '/data', component: Data},
     {path:'/login', component: Login},
     {path:'/predictions', component: Prediction},
-    {path:'/dengueCases', component: DengueCases},
+    {path:'/admin/cases', component: DengueCases},
     {path:'/newCase', component: NewDengueCaseForm},
   ]
 });
