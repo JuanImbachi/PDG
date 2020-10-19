@@ -1,7 +1,7 @@
 <template>
     <v-app-bar app dark dense>
         <v-toolbar-title>
-          <router-link tag="span" to="/" style="cursor:pointer">SEGUIMIENTO DE CASOS DE DENGUE</router-link>
+          <router-link tag="span" to="/" style="cursor:pointer">Seguimiento de Casos de Dengue</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn  to="/predictions"  medium text dense> Predicciones </v-btn>

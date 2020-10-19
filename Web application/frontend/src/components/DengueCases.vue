@@ -12,10 +12,10 @@
       </v-alert>
 
       <v-toolbar dark>
-        <v-toolbar-title>Casos Históricos de Dengue</v-toolbar-title>
+        <v-toolbar-title>Registros Históricos</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-dialog v-model="modal" :persistent="true">
-          <NewDengueCaseForm  v-if="modal" @notifyNewAppointment="refresh" @notifyNewAppointmentStatus="showNewAppointmentStatus" @closeAppointmentForm="closeAppointmentForm"></NewDengueCaseForm>
+          <NewDengueCaseForm  v-if="modal" @notifyNewAppointment="refresh" @notifyNewAppointmentStatus="showNewAppointmentStatus" @closeAppointmentForm="modal=!modal"></NewDengueCaseForm>
         </v-dialog>
         <v-btn rounded @click="modal=!modal"><v-icon left>mdi-plus</v-icon>Agregar Caso</v-btn>
       </v-toolbar>
