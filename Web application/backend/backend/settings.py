@@ -23,12 +23,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2w6ipe62hndw$lwx^#*kq&h78*e2^b&cjelh-*%3mr$**a#r@j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8080',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'model'
+    'model',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -87,7 +96,7 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
             'NAME': 'pdg'
         }
     }
-    print('hola')
+    print('db_web')
 else :
     DATABASES = {
         'default': {
@@ -99,7 +108,7 @@ else :
             'PASSWORD': 'koepPluoqHNjcbe8',   
         }
     }
-    print('hola2')
+    print('db_localhost')
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

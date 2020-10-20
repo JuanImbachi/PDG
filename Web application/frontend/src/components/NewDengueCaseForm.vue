@@ -89,7 +89,7 @@
           :disabled="!valid"
           color="success"
           class="mr-4"
-          @click="validate"
+          @click="submit"
         >
           Guardar
         </v-btn>
@@ -107,6 +107,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import swal from 'sweetalert'
+
 export default {
   data() {
     return {
@@ -116,6 +119,13 @@ export default {
       cities: ['Buga', 'Yopal', 'Girón'],
       genders: ['Femenino', 'Masculino'],
       neighborhoods: ['Mercedes'],
+      case:{
+        city: '',
+        notification_date: '',
+        age: '',
+        neighborhood: '',
+        gender: '',
+      },
       city: '',
       date: '',
       age: '',
@@ -124,19 +134,39 @@ export default {
     }
   },
   methods: {
-    validate () {
-        if(this.$refs.form.validate()){
-          alert("valid")
-        }
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
+    submit () {
+      const path = 'http://127.0.0.1:8000/api/v1.0/dengueCases/'
+      this.createObject()
 
-      cancel () {
-        this.reset()
-        this.$emit("closeAppointmentForm")
+      if(this.$refs.form.validate()){
+        axios.post(path,this.case).then((response) => {
+          swal("¡Caso registrado exitosamente!", "", "success")
+          this.$emit("notifyNewCase")
+        })
+        .catch((error) => {
+          swal("El caso no ha sido creado", "", "error")
+        })
       }
+    },
+
+    createObject () {
+      this.case = {
+        city : this.city,
+        notification_date : this.date,
+        age : this.age,
+        gender : this.gender,
+        neighborhood : this.neighborhood
+      }
+    },
+
+    reset () {
+      this.$refs.form.reset()
+    },
+
+    cancel () {
+      this.reset()
+      this.$emit("closeDengueCaseForm")
+    }
   },
 
 }

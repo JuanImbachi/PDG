@@ -9,7 +9,7 @@
           >
             <v-card class="elevation-12 transparent">
               <v-toolbar
-                class="grey darken-3 white--text"
+                class="blue-grey lighten-1 white--text"
                 flat
               >
                 <v-toolbar-title>Iniciar Sesión</v-toolbar-title>

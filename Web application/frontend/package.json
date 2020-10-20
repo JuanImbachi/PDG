@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "PDG frontend",
-  "author": "Jamf99 <jorge.morales2@correo.icesi.edu.co>",
+  "author": "Juan Manuel Imbachí Güengue <juan.imbachi@correo.icesi.edu.co> Jamf99 <jorge.morales2@correo.icesi.edu.co>",
   "scripts": {
     "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
     "vue-google-heatmap": "^1.0.1",
     "vue-router": "^3.4.7",
