@@ -1,7 +1,7 @@
 <template>
   <v-container mt-8>
       <v-toolbar class="blue-grey darken-1">
-        <v-toolbar-title>Registros Históricos</v-toolbar-title>
+        <v-toolbar-title><b>Registros Históricos</b></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-dialog v-model="modal" :persistent="true">
           <NewDengueCaseForm  v-if="modal" @notifyNewCase="refresh" @closeDengueCaseForm="modal=!modal"></NewDengueCaseForm>
@@ -38,6 +38,7 @@
 import NewDengueCaseForm from './NewDengueCaseForm'
 import axios from 'axios'
 import swal from 'sweetalert'
+import apiDengue from "@/apiDengue";
 
 export default {
   data() {
@@ -88,8 +89,7 @@ export default {
   },
   methods: {
     getCases () {
-      const path = 'http://127.0.0.1:8000/api/v1.0/dengueCases/'
-      axios.get(path).then((response) => {
+      apiDengue.getCases().then((response) => {
         this.cases = response.data
       })
       .catch((error=>{
@@ -119,9 +119,7 @@ export default {
     },
 
     deleteItemConfirm () {
-      const path = `http://127.0.0.1:8000/api/v1.0/dengueCases/${this.editedItem.id}/`
-
-      axios.delete(path).then((response) => {
+      apiDengue.deleteCase(this.editedItem.id).then((response) => {
         this.cases.splice(this.editedIndex, 1)
         this.$nextTick(() => {
           this.editedIndex = -1
@@ -129,6 +127,7 @@ export default {
         swal("¡Registrado eliminado exitosamente!", '', 'success')
       })
       .catch((error) =>{
+        console.log(error)
         swal({title: "No fue posible eliminar el registro", icon: "error",});
       })
     },
@@ -173,4 +172,5 @@ export default {
 .v-dialog {
     width: 50%;
 }
+
 </style>

@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     submit () {
-      const path = 'http://127.0.0.1:8000/api/v1.0/dengueCases/'
+      const path = 'http://127.0.0.1:8000/api/dengueCases/'
       this.createObject()
 
       if(this.$refs.form.validate()){

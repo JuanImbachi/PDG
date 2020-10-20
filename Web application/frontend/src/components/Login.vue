@@ -16,7 +16,7 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form ref="form" v-model="valid">
+                <v-form ref="form" v-model="valid" >
                   <v-text-field
                       label="E-mail"
                       prepend-icon="mdi-account"
@@ -27,10 +27,10 @@
                   ></v-text-field>
 
                   <v-text-field
+                      label="Contraseña"
                       v-model="password"
                       :append-icon="showpassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showpassword ? 'text' : 'password'"
-                      label="Contraseña"
                       @click:append="showpassword = !showpassword"
                       prepend-icon="mdi-lock"
                       required
@@ -50,6 +50,8 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
+
 export default {
   components: {
 
@@ -68,14 +70,25 @@ export default {
     }
   },
   methods: {
-    login() {
-      console.log(this.email +" - "+ this.password)
-    //   axios.post('http://127.0.0.1:8000/auth/', {
-    //     email: this.email,
-    //     password: this.password,
-    //   })
-    //   .then(resp => console.log('it works!'))
-    //   .catch(err => console.log(err))
+    login () {
+      const path = 'http://127.0.0.1:8000/auth/'
+
+      axios.post(path, {
+         username: this.email,
+         password: this.password,
+      })
+       .then((response) => {
+         localStorage.setItem('user-token', response.data.token)
+
+          swal(`¡Bienvenido ${this.email}!`, '', 'success')
+          .then((response) =>{
+            this.$router.push('/')
+          })
+       })
+       .catch((response) => {
+         localStorage.removeItem('user-token')
+         swal("Error al iniciar sesión", '', 'error')
+       })
     },
 
     validateForm () {
@@ -84,9 +97,7 @@ export default {
     submit () {
       this.validateForm()
       if(this.valid){
-        console.log(this.email, this.password)
-      }else{
-        console.log("F")
+        this.login()
       }
     },
   }
