@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import apiDengue from "@/apiDengue";
 import swal from 'sweetalert'
 
 export default {
@@ -135,11 +135,10 @@ export default {
   },
   methods: {
     submit () {
-      const path = 'http://127.0.0.1:8000/api/dengueCases/'
       this.createObject()
 
       if(this.$refs.form.validate()){
-        axios.post(path,this.case).then((response) => {
+        apiDengue.postCreateCase(this.case).then((response) => {
           swal("¡Caso registrado exitosamente!", "", "success")
           this.$emit("notifyNewCase")
         })

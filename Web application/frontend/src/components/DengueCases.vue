@@ -36,7 +36,6 @@
 
 <script>
 import NewDengueCaseForm from './NewDengueCaseForm'
-import axios from 'axios'
 import swal from 'sweetalert'
 import apiDengue from "@/apiDengue";
 
