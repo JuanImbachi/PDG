@@ -4,7 +4,8 @@ import router from './routes/router'
 import vuetify from './plugins/vuetify';
 import VueGoogleHeatmap from 'vue-google-heatmap';
 
-Vue.use(VueGoogleHeatmap, {
+
+Vue.use(VueGoogleHeatmap,  {
   apiKey: 'AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c'
 });
 

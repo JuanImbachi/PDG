@@ -16,11 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken.views import obtain_auth_token
-from model.views import index
+from model.views import casesFilter, getNeighborhoodsByCity, getCasesByCityNeighborhood
 
-urlpatterns = [
-    url(r'^$', index),
+
+urlpatterns = [   
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('model.urls')),
     url(r'^auth/', obtain_auth_token),
+    url(r'^api/cases/', casesFilter),
+    url(r'^api/neighborhoods/(?P<city_searched>\w+)/$', getNeighborhoodsByCity),
+    url(r'^api/datesChart/', getCasesByCityNeighborhood),
+
 ]

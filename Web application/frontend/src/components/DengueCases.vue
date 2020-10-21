@@ -15,6 +15,8 @@
         class="elevation-1"
         :search="search"
         calculate-widths:true
+        no-data-text="Cargando..."
+        no-results-text="No se encontraron registros"
       >
 
       <template v-slot:top>
@@ -45,34 +47,39 @@ export default {
       headers: [
         {
           text: 'Ciudad',
-          align: 'start',
+          align: 'center',
           sortable: true,
-          value: 'city',
+          value: 'City',
         },
         {
           text: 'Fecha Notificación',
           sortable: true,
-          value: 'notification_date',
+          value: 'NotificationDate',
+          align: 'center'
         },
         {
           text: 'Edad',
           sortable: false,
-          value: 'age',
+          value: 'Age',
+          align: 'center'
         },
         {
           text: 'Género',
           sortable: false,
-          value: 'gender',
+          value: 'Gender',
+          align: 'center'
         },
         {
           text: 'Barrio',
           sortable: true,
-          value: 'neighborhood',
+          value: 'Neighborhood',
+          align: 'center'
         },
         {
           text: 'Comuna',
           sortable: false,
-          value: 'comuna',
+          value: 'Commune',
+          align: 'center'
         },
         {
           sortable: false,

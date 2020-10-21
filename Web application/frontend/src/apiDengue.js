@@ -27,10 +27,35 @@ function deleteCase(id) {
   return axios.delete(`${path}/api/dengueCases/${id}/`, axiosConfig)
 }
 
+function getCasesByCity(body){
 
+  return axios({
+    method: 'post',
+    url: `${path}/api/cases/`,
+    headers: {},
+    data: body
+  })
+}
+
+function getNeighborhoodsByCity (city_searched) {
+  return axios.get(`${path}/api/neighborhoods/${city_searched}/`)
+}
+
+function getCasesByCityNeighborhood(body){
+
+  return axios({
+    method: 'post',
+    url: `${path}/api/datesChart/`,
+    headers: {},
+    data: body
+  })
+}
 
 export default{
   getCases,
+  getCasesByCity,
+  getNeighborhoodsByCity,
+  getCasesByCityNeighborhood,
   postCreateCase,
   deleteCase,
   path

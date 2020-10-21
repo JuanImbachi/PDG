@@ -11,6 +11,7 @@ class DengueCaseViewSet(viewsets.ModelViewSet):
     serializer_class = DengueCaseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     authentication_classes = (TokenAuthentication,)

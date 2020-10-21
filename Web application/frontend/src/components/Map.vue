@@ -2,7 +2,7 @@
   <v-container>
       <vue-google-heatmap
         :points="points"
-        :height="450"
+        :height="height"
         :lat="myCoordinates.lat"
         :lng="myCoordinates.lng"
         :initial-zoom="zoomCt"
@@ -17,6 +17,7 @@
       props: ["mapCoords", "mapZoom"],
       data(){
         return {
+          height: 500,
           mapKey: 0,
           myCoordinates: {
               lat: 0,

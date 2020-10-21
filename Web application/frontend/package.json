@@ -12,9 +12,12 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "apexcharts": "^3.22.0",
     "axios": "^0.20.0",
+    "fusioncharts": "^3.15.3",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
+    "vue-fusioncharts": "^3.0.4",
     "vue-google-heatmap": "^1.0.1",
     "vue-router": "^3.4.7",
     "vuetify": "^2.3.14"
