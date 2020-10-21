@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-mysql_to_csv()
+#mysql_to_csv()
 
 # Application definition
 

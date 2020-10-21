@@ -17,9 +17,6 @@ import apiDengue from "@/apiDengue";
 
 Vue.use(VueFusionCharts, FusionCharts, TimeSeries);
 
-const dataFetch = apiDengue.getCasesByCityNeighborhood(JSON.stringify({city:'Buga', neighborhood:'SANTA BARBARA'})).then((response) =>{
-  JSON.parse(response.data.data)
-} );
 
 
 export default {
@@ -56,9 +53,9 @@ export default {
   mounted: function() {
     // In this Promise we will create our DataStore and using that we will create a custom DataTable which takes two
     // parameters, one is data another is schema.
-    Promise.all([dataFetch]).then(res => {
-      const data = res[0];
-      console.log(data)
+    apiDengue.getCasesByCityNeighborhood(JSON.stringify({city:'Buga', neighborhood:'SANTA BARBARA'})).then((response) =>{
+
+      const data = response.data.data
       const schema = [{
         "name": "Time",
         "type": "date",
@@ -67,7 +64,6 @@ export default {
         "name": "Number of Cases",
         "type": "number"
       }]
-
       // First we are creating a DataStore
       const fusionDataStore = new FusionCharts.DataStore();
       // After that we are creating a DataTable by passing our data and schema as arguments
@@ -75,7 +71,8 @@ export default {
       // After that we simply mutated our timeseries datasource by attaching the above
       // DataTable into its data property.
       this.dataSource.data = fusionTable;
-    });
+    } );
+
   }
 };
 </script>

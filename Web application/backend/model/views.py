@@ -56,17 +56,16 @@ def getCasesByCityNeighborhood(request):
         for dd in dates:
             numCases = DengueCase.objects.filter(NotificationDate=dd).count()
             date = dd.strftime('%Y/%m/%d')
-            register = [ date, numCases]
+            register = [ date, neighborhood_searched, numCases]
             finalData.append(register)
-
-        res = {
-        "code": 200,
-        "data": list(finalData)
-        }
+        finalData = {
+            "code": 200,
+            "data":list(finalData)
+            }
     except Exception as e:
         res = {
         "code": 0,
         "errMsg": e
         }
-    return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse(json.dumps(finalData), content_type="application/json")
 
