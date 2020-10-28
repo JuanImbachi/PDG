@@ -40,25 +40,25 @@
             {lat: 37.800886, lng:-122.435959}
           ]
         }
-        },
-        methods: {
-          forceRerender() {
-            this.mapKey += 1;
-          }
-        },
-        mounted(){
-          this.myCoordinates = this.mapCoords;
-          this.zoomCt = this.mapZoom;
-        },
-        watch:{
-          mapCoords(){
-            this.myCoordinates = this.mapCoords;
-            this.forceRerender()
-          },
-          mapZoom () {
-            this.zoomCt = this.mapZoom;
-          }
-        }
+    },
+    methods: {
+      forceRerender() {
+        this.mapKey += 1;
+      }
+    },
+    mounted(){
+      this.myCoordinates = this.mapCoords;
+      this.zoomCt = this.mapZoom;
+    },
+    watch:{
+      mapCoords(){
+        this.myCoordinates = this.mapCoords;
+        this.forceRerender()
+      },
+      mapZoom () {
+        this.zoomCt = this.mapZoom;
+      }
+    }
     }
 </script>
 

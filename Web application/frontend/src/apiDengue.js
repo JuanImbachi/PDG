@@ -43,7 +43,7 @@ function getNeighborhoodsByCity (city_searched) {
 
 function getCasesByCityNeighborhood(body){
 
-  return axios({
+    return axios({
     method: 'post',
     url: `${path}/api/datesChart/`,
     headers: {},

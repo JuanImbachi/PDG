@@ -113,7 +113,7 @@
       <v-card class="my-3">
         <v-row justify="space-around" align="center" >
           <v-col>
-              <chart-component />
+              <chart-component  :City="city_to_search" :Neighborhoods="neighborhoods_to_search" />
           </v-col>
         </v-row>
       </v-card>
@@ -141,15 +141,17 @@ export default {
   data() {
     return {
       selected_city: "Buga",
+      city_to_search: "",
       selected_years: [],
       selected_neighborhoods: [],
+      neighborhoods_to_search: [],
       cities: [
               { name: 'Buga', position: {lat: 3.9, lng: -76.3}, zoom: 13.5},
               { name: 'Girón', position: {lat: 7.067, lng: -73.167}, zoom: 14},
               { name: 'Yopal', position: {lat: 5.3307, lng: -72.3951}, zoom: 13},
       ],
       years: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-      neighborhoods: ['SANTA BARBARA', 'LA MERCED'],
+      neighborhoods: [],
       mapCoords: {
         lat : 0,
         lng : 0
@@ -172,6 +174,9 @@ export default {
       },
 
       filterData () {
+        this.city_to_search = this.selected_city
+        this.neighborhoods_to_search = this.selected_neighborhoods
+
         var body = {
           city: this.selected_city,
           years: this.selected_years,
@@ -215,7 +220,7 @@ export default {
 
       allNeighborhoods () {
         this.$nextTick(() => {
-          if (this.allCeighborhoodsSelected) {
+          if (this.allNeighborhoodsSelected) {
             this.selected_neighborhoods = []
           } else {
             this.selected_neighborhoods = this.neighborhoods.slice()

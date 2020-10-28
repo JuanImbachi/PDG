@@ -5,6 +5,7 @@ from .serializer import DengueCaseSerializer
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
+from datetime import datetime, timedelta
 import json
 from django.views.decorators.csrf import csrf_exempt
 
@@ -48,24 +49,37 @@ def getNeighborhoodsByCity(request, city_searched):
 def getCasesByCityNeighborhood(request):
     try:
         obj = json.loads(request.body)
-        city_searched = obj['city']
-        neighborhood_searched = obj['neighborhood']
-        finalData = []
-        dates = list(DengueCase.objects.filter(City=city_searched, Neighborhood=neighborhood_searched).order_by('NotificationDate').values_list('NotificationDate', flat=True).distinct())
 
-        for dd in dates:
-            numCases = DengueCase.objects.filter(NotificationDate=dd).count()
-            date = dd.strftime('%Y/%m/%d')
-            register = [ date, neighborhood_searched, numCases]
-            finalData.append(register)
-        finalData = {
+        city_searched = obj['city']
+        neighborhoods_searched = obj['neighborhood']
+
+        finalData = []
+
+        inicio = datetime(2010,1,1).date()
+        fin    = datetime(2019,12,31).date()
+        lista_fechas = [inicio + timedelta(days=d) for d in range((fin - inicio).days + 1)] 
+
+        for neighborhood in neighborhoods_searched:
+            datesFiltered = list(DengueCase.objects.filter(City=city_searched, Neighborhood=neighborhood).values_list('NotificationDate', flat=True).distinct())
+        
+            for element in lista_fechas:
+                if(element in datesFiltered):
+                    numCases = DengueCase.objects.filter(City=city_searched, Neighborhood=neighborhood, NotificationDate=element).count()
+                    date = element.strftime('%Y-%m-%d')
+                    register = [ date, neighborhood, numCases]
+                    finalData.append(register)
+                else:
+                    date = element.strftime('%Y-%m-%d')
+                    register = [ date, neighborhood, 0]
+                    finalData.append(register)
+
+        res = {
             "code": 200,
             "data":list(finalData)
             }
     except Exception as e:
         res = {
-        "code": 0,
-        "errMsg": e
-        }
-    return HttpResponse(json.dumps(finalData), content_type="application/json")
-
+            "code": 0,
+            "errMsg": e
+            }
+    return HttpResponse(json.dumps(res), content_type="application/json")
