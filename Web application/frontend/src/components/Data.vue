@@ -1,28 +1,83 @@
 <template>
   <div class="mx-16 mb-4">
     <v-container fluid>
-      <v-card>
-        <v-row justify="space-around" dense class="ma-0">
-          <v-col class="ml-2" >
-            <v-col>
-              <div class="subtitle-2 grey--text ">Opciones de Filtrado</div>
-            </v-col>
-            <v-row justify="space-around" dense >
-            <v-col >
-              <v-select
-                outlined
-                dense
-                :menu-props="{ top: false, offsetY: true }"
-                v-model="selected_city"
-                :items="cities"
-                item-text="name"
-                label="Ciudad"
-                required
-                @change="citySelected"
-              ></v-select>
-            </v-col>
-            <v-col>
-              <v-select
+      <v-row >
+        <v-col align="start">
+          <div class="subtitle-2 grey--text ">Opciones de Filtrado</div>
+        </v-col>
+      </v-row>
+      <v-row justify="start" dense >
+        <v-col cols="2">
+          <v-select
+            outlined
+            dense
+            :menu-props="{ top: false, offsetY: true }"
+            v-model="selected_city"
+            :items="cities"
+            item-text="name"
+            label="Ciudad"
+            required
+            @change="citySelected"
+          ></v-select>
+        </v-col>
+        <v-col cols="2" >
+          <v-select
+              outlined
+              dense
+              :menu-props="{ offsetY: true }"
+              v-model="selected_neighborhoods"
+              :items="neighborhoods"
+              label="Barrio"
+              multiple
+            >
+            <template v-slot:prepend-item>
+                <v-list-item
+                  @click="allNeighborhoods"
+                >
+                <v-list-item-action>
+                  <v-icon :color="selected_neighborhoods.length > 0 ? 'light-blue darken-2' : ''">
+                    {{ iconNeighborhood }}
+                  </v-icon>
+                </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      Selecccionar Todo
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider class="mt-2"></v-divider>
+              </template>
+              <template v-slot:selection="{ item, index }">
+                    <div class="mr-2" v-if="index === 0">
+                      <span>{{ item }}</span>
+                    </div>
+                    <span
+                      v-if="index === 1"
+                      class="grey--text caption"
+                    >
+                      (+{{ selected_neighborhoods.length - 1 }})
+                    </span>
+              </template>
+          </v-select>
+        </v-col>
+        <v-col align="center" cols="1">
+          <v-btn outlined  color="primary" @click="filterData" >
+            <v-icon left>mdi-cloud-search-outline</v-icon>FILTRAR
+          </v-btn>
+        </v-col>
+      </v-row >
+
+      <v-card class="my-3">
+        <v-row justify="space-around" align="center" >
+          <v-col>
+              <chart-component  :City="city_to_search" :Neighborhoods="neighborhoods_to_search" />
+          </v-col>
+        </v-row>
+      </v-card>
+      <v-card >
+        <v-row justify="space-between">
+          <v-col cols="2" class=" mb-n6 ml-2">
+            <v-select
                 outlined
                 dense
                 :menu-props="{ offsetY: true }"
@@ -32,97 +87,44 @@
                 multiple
                 @change="yearSelected"
               >
-                <template v-slot:prepend-item>
-                  <v-list-item
-                    @click="allYears"
-                  >
-                  <v-list-item-action>
-                    <v-icon :color="selected_years.length > 0 ? 'light-blue darken-2' : ''">
-                      {{ iconYear }}
-                    </v-icon>
-                  </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        Selecccionar Todo
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-divider class="mt-2"></v-divider>
-                </template>
-                <template v-slot:selection="{ item, index }">
-                      <div class="mr-2" v-if="index === 0">
-                        <span>{{ item }}</span>
-                      </div>
-
-                      <span
-                        v-if="index === 1"
-                        class="grey--text caption"
-                      >
-                        (+{{ selected_years.length - 1 }})
-                      </span>
-                </template>
-              </v-select>
-            </v-col>
-            <v-col >
-              <v-select
-                  outlined
-                  dense
-                  :menu-props="{ offsetY: true }"
-                  v-model="selected_neighborhoods"
-                  :items="neighborhoods"
-                  label="Barrio"
-                  multiple
+              <template v-slot:prepend-item>
+                <v-list-item
+                  @click="allYears"
                 >
-                <template v-slot:prepend-item>
-                    <v-list-item
-                      @click="allNeighborhoods"
-                    >
-                    <v-list-item-action>
-                      <v-icon :color="selected_neighborhoods.length > 0 ? 'light-blue darken-2' : ''">
-                        {{ iconNeighborhood }}
-                      </v-icon>
-                    </v-list-item-action>
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          Selecccionar Todo
-                        </v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-divider class="mt-2"></v-divider>
-                  </template>
-                  <template v-slot:selection="{ item, index }">
-                        <div class="mr-2" v-if="index === 0">
-                          <span>{{ item }}</span>
-                        </div>
-                        <span
-                          v-if="index === 1"
-                          class="grey--text caption"
-                        >
-                          (+{{ selected_neighborhoods.length - 1 }})
-                        </span>
-                  </template>
-              </v-select>
-            </v-col>
-            <v-col align="center">
-              <v-btn outlined  medium color="primary" :width="'80%'" @click="filterData" > <v-icon left>mdi-cloud-search-outline</v-icon>FILTRAR</v-btn>
-            </v-col>
-          </v-row >
-        </v-col>
-      </v-row>
-      </v-card>
-      <v-card class="my-3">
-        <v-row justify="space-around" align="center" >
+                <v-list-item-action>
+                  <v-icon :color="selected_years.length > 0 ? 'light-blue darken-2' : ''">
+                    {{ iconYear }}
+                  </v-icon>
+                </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      Selecccionar Todo
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider class="mt-2"></v-divider>
+              </template>
+              <template v-slot:selection="{ item, index }">
+                <div class="mr-2" v-if="index === 0">
+                  <span>{{ item }}</span>
+                </div>
+
+                <span
+                  v-if="index === 1"
+                  class="grey--text caption"
+                >
+                  (+{{ selected_years.length - 1 }})
+                </span>
+              </template>
+            </v-select>
+          </v-col>
           <v-col>
-              <chart-component  :City="city_to_search" :Neighborhoods="neighborhoods_to_search" />
+            <v-btn fab small outlined  color="primary" @click="getMapData" >
+              <v-icon icon >mdi-magnify</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
-      </v-card>
-      <v-card>
-        <v-row justify="space-around" align="center">
-          <v-col>
-            <map-component :mapCoords="mapCoords" :mapZoom="mapZoom"></map-component>
-          </v-col>
-        </v-row>
+        <map-component :mapCoords="mapCoords" :mapZoom="mapZoom" :mapPoints="mapPoints"></map-component>
       </v-card>
     </v-container>
   </div>
@@ -132,6 +134,7 @@
 import MapGoogle from './Map';
 import TimeSeriesChart from './TimeSeriesChart'
 import apiDengue from "@/apiDengue";
+import swal from 'sweetalert'
 
 export default {
   components: {
@@ -156,8 +159,8 @@ export default {
         lat : 0,
         lng : 0
       },
-      cases: [],
       mapZoom : 0,
+      mapPoints : [],
       src: require('../assets/download.png'),
     }
   },
@@ -174,31 +177,54 @@ export default {
       },
 
       filterData () {
-        this.city_to_search = this.selected_city
-        this.neighborhoods_to_search = this.selected_neighborhoods
-
-        var body = {
-          city: this.selected_city,
-          years: this.selected_years,
-          neighborhoods: this.selected_neighborhoods
+        if(this.selected_neighborhoods.length == 0){
+          swal("Seleccione al menos un barrio", '', 'error')
+        }else{
+          this.city_to_search = this.selected_city
+          this.neighborhoods_to_search = this.selected_neighborhoods
         }
-
-        apiDengue.getCasesByCity(JSON.stringify(body))
-        .then((response) => {
-          var general_data= JSON.parse(response.data.data)
-
-          general_data.forEach(element => {
-            this.cases.push(element.fields)
-          });
-        })
       },
 
       getCityInfo () {
         let cityInfo = this.cities.find(city => city.name === this.selected_city);
-
         this.mapCoords = cityInfo.position
-
         this.mapZoom = cityInfo.zoom;
+     },
+
+     async getMapData(){
+       if(this.neighborhoods_to_search.length == 0 || this.selected_years.length == 0){
+         swal("Información incompleta", 'Seleccione al menos un barrio y un año.', 'error')
+       }else{
+        var body = {
+            city: this.city_to_search,
+            neighborhoods: this.neighborhoods_to_search,
+            years: this.selected_years
+          }
+          var neighborhoodsCount = []
+          var points = []
+          await apiDengue.getCasesCountByCityNeighborhoodYear(JSON.stringify(body))
+          .then((response) => {
+            neighborhoodsCount = response.data.data
+          })
+
+          neighborhoodsCount.forEach(element => {
+            var location = {}
+            var viewport = {}
+            apiDengue.getLocation(this.city_to_search, element[0]).then((response) => {
+              location = response.data.results[0].geometry.location
+              viewport = response.data.results[0].geometry.viewport
+
+              for(var i=0; i< element[1]; i++){
+                var latVal = Math.random()*(viewport.northeast.lat-viewport.southwest.lat) + location.lat
+                var lngVal = Math.random()*(viewport.northeast.lng-viewport.southwest.lng) + location.lng
+                var newPoint = {lat:latVal, lng:lngVal}
+                points.push(newPoint)
+              }
+            })
+
+          });
+          this.mapPoints = points
+       }
      },
 
      getNeighborhoodsByCity (){
@@ -227,6 +253,7 @@ export default {
           }
         })
       },
+
     },
     created() {
       this.getCityInfo()

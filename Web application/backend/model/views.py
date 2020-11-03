@@ -83,3 +83,32 @@ def getCasesByCityNeighborhood(request):
             "errMsg": e
             }
     return HttpResponse(json.dumps(res), content_type="application/json")
+
+@csrf_exempt
+def getNumberCasesByNeighborhoodCityYear(request):
+    try:
+        obj = json.loads(request.body)
+
+        city_searched = obj['city']
+        neighborhoods_searched = obj['neighborhoods']
+        years_searched = obj['years']
+        finalData = []
+
+        for neighborhood in neighborhoods_searched:
+            numCases = DengueCase.objects.filter(City=city_searched, NotificationDate__year__in=years_searched, Neighborhood=neighborhood).count()
+            register = [ neighborhood, numCases]
+            finalData.append(register)
+
+        res = {
+            "code": 200,
+            "data":list(finalData)
+            }
+    except Exception as e:
+        res = {
+            "code": 0,
+            "errMsg": e
+            }
+
+    return HttpResponse(json.dumps(res), content_type="application/json")
+
+

@@ -14,7 +14,7 @@
 
 <script>
     export default {
-      props: ["mapCoords", "mapZoom"],
+      props: ["mapCoords", "mapZoom", "mapPoints"],
       data(){
         return {
           height: 500,
@@ -37,7 +37,7 @@
             {lat: 37.800938, lng:-122.434650},
             {lat: 37.801024, lng:-122.434889},
             {lat: 37.800955, lng:-122.435392},
-            {lat: 37.800886, lng:-122.435959}
+            {lat: 37.800886, lng:-122.435959},
           ]
         }
     },
@@ -57,6 +57,10 @@
       },
       mapZoom () {
         this.zoomCt = this.mapZoom;
+      },
+      mapPoints(){
+        this.points = this.mapPoints
+        this.forceRerender()
       }
     }
     }

@@ -51,11 +51,26 @@ function getCasesByCityNeighborhood(body){
   })
 }
 
+function getCasesCountByCityNeighborhoodYear(body){
+  return axios({
+    method: 'post',
+    url: `${path}/api/casesCount/`,
+    headers: {},
+    data: body
+  })
+}
+
+function getLocation(neighborhood,city){
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${neighborhood},${city},Colombia&key=AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c`)
+}
+
 export default{
   getCases,
   getCasesByCity,
   getNeighborhoodsByCity,
   getCasesByCityNeighborhood,
+  getCasesCountByCityNeighborhoodYear,
+  getLocation,
   postCreateCase,
   deleteCase,
   path
