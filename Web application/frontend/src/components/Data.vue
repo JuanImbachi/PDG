@@ -195,6 +195,7 @@ export default {
        if(this.neighborhoods_to_search.length == 0 || this.selected_years.length == 0){
          swal("Información incompleta", 'Seleccione al menos un barrio y un año.', 'error')
        }else{
+        var errorMessage = ''
         var body = {
             city: this.city_to_search,
             neighborhoods: this.neighborhoods_to_search,
@@ -211,19 +212,27 @@ export default {
             var location = {}
             var viewport = {}
             apiDengue.getLocation(this.city_to_search, element[0]).then((response) => {
-              location = response.data.results[0].geometry.location
-              viewport = response.data.results[0].geometry.viewport
 
-              for(var i=0; i< element[1]; i++){
-                var latVal = Math.random()*(viewport.northeast.lat-viewport.southwest.lat) + location.lat
-                var lngVal = Math.random()*(viewport.northeast.lng-viewport.southwest.lng) + location.lng
-                var newPoint = {lat:latVal, lng:lngVal}
-                points.push(newPoint)
+              try{
+                location = response.data.results[0].geometry.location
+                viewport = response.data.results[0].geometry.viewport
+
+                for(var i=0; i< element[1]; i++){
+                  var latVal = Math.random()*(viewport.northeast.lat-viewport.southwest.lat) + location.lat
+                  var lngVal = Math.random()*(viewport.northeast.lng-viewport.southwest.lng) + location.lng
+                  var newPoint = {lat:latVal, lng:lngVal}
+                  points.push(newPoint)
+                }
+              }catch(err){
+                 errorMessage += element[0]+", "
+                 swal("Barrios no encontrados:",errorMessage, 'error')
               }
             })
 
           });
+
           this.mapPoints = points
+
        }
      },
 
@@ -258,6 +267,12 @@ export default {
     created() {
       this.getCityInfo()
       this.getNeighborhoodsByCity()
+    },
+
+    watch: {
+      selected_city(){
+        this.selected_neighborhoods= []
+      }
     },
 
     computed: {
