@@ -41,7 +41,6 @@ def getPrediction(request):
         city_searched = obj['city']
         neighborhood_searched = obj['neighborhood']
         prediction = mymodel.get_predictions(city_searched, neighborhood_searched, 900, 900)
-        print("[+] predictions done", type(prediction))
         res = {
         "code": 200,
         "data": list(prediction)

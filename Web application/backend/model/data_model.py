@@ -35,14 +35,13 @@ class Data_Model:
         end_date = datetime.date(2020, 1, 1)
 
         list_values = []
-        print(nb_df)
+        
         for i in range((end_date - start_date).days):
             date = start_date + i*day_delta
-            
+            date2 = date.strftime('%Y-%m-%d')
             try:
-                list_values.append(nb_df.at[date,'Cases'])
-                print("[*]",date)
-            except:  
+                list_values.append(nb_df.at[date2,'Cases'])
+            except BaseException as e:
                 list_values.append(0)
                 
         final_model = pd.DataFrame(columns=('Date', 'Cases'))
@@ -107,7 +106,6 @@ class Data_Model:
         number_of_predictions = sum(1 for i in predictions if i != 0) 
         hits = self.calculate_hits(test, predictions)
         ans = [list(predictions), list(test), number_of_predictions, real_cases]
-        print("[-] Que berraco pa joder")
         return ans
         
     def get_predictions(self, city, neigborhood, days_to_predict, lags) :
@@ -127,8 +125,6 @@ class Data_Model:
             df_neighborhood.index.name = 'Date'
             df_neighborhood = self.assign_zeros(df_neighborhood)
             df_neighborhood.set_index('Date',inplace=True)
-            print(df_neighborhood)
-
             ans = self.AR(df_neighborhood, neigborhood, days_to_predict, lags, flag)
         except Exception as e:
         
