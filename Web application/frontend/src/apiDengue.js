@@ -41,6 +41,19 @@ function getNeighborhoodsByCity (city_searched) {
   return axios.get(`${path}/api/neighborhoods/${city_searched}/`)
 }
 
+function getNeighborhoodsToPredict (city_searched) {
+  return axios.get(`${path}/api/neighborhoods/predict/${city_searched}/`)
+}
+
+function getPrediction(body){
+  return axios({
+    method: 'post',
+    url: `${path}/api/prediction/`,
+    headers: {},
+    data: body
+  })
+}
+
 function getCasesByCityNeighborhood(body){
 
     return axios({
@@ -73,5 +86,7 @@ export default{
   getLocation,
   postCreateCase,
   deleteCase,
+  getNeighborhoodsToPredict,
+  getPrediction,
   path
 }

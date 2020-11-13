@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken.views import obtain_auth_token
-from model.views import casesFilter, getNeighborhoodsByCity, getCasesByCityNeighborhood, getNumberCasesByNeighborhoodCityYear
+from model.views import casesFilter, getNeighborhoodsByCity, getCasesByCityNeighborhood, getNumberCasesByNeighborhoodCityYear,getNeighborhoodsToPredict,getPrediction
 
 
 urlpatterns = [   
@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^api/cases/', casesFilter),
     url(r'^api/neighborhoods/(?P<city_searched>\w+)/$', getNeighborhoodsByCity),
     url(r'^api/datesChart/', getCasesByCityNeighborhood),
-    url(r'^api/casesCount/', getNumberCasesByNeighborhoodCityYear)
+    url(r'^api/casesCount/', getNumberCasesByNeighborhoodCityYear),
+    url(r'^api/neighborhoods/predict/(?P<city_searched>\w+)/$', getNeighborhoodsToPredict),
+    url(r'^api/prediction/', getPrediction)
 
 ]
