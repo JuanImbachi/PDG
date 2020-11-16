@@ -45,11 +45,10 @@
       <v-card class="my-3">
         <v-row justify="space-around" align="center" dense class="ma-0">
           <v-col>
-            <v-img :src="src" aspect-ratio="1.2" contain ></v-img>
+              <chart-component  :City="selected_city" :Neighborhoods="neighborhood_to_predict" :isPrediction="true" @update-map="updateMap"/>
           </v-col>
-
           <v-col>
-            <map-component :mapCoords="mapCoords" :mapZoom="mapZoom"></map-component>
+            <map-component :mapCoords="mapCoords" :mapZoom="mapZoom" :mapPoints="mapPoints"></map-component>
           </v-col>
         </v-row>
       </v-card>
@@ -60,15 +59,18 @@
 <script>
 import MapGoogle from './Map';
 import apiDengue from "@/apiDengue";
-import swal from 'sweetalert'
+import swal from 'sweetalert';
+import TimeSeriesChart from './TimeSeriesChart';
 
 export default {
    components: {
      mapComponent: MapGoogle,
+     chartComponent: TimeSeriesChart
    },
    data() {
      return {
       selected_city: "Buga",
+      neighborhood_to_predict: "",
       selected_neighborhood: "",
       neighborhoods: [],
       cities: [
@@ -82,22 +84,45 @@ export default {
       },
       mapZoom : 0,
       src: require('../assets/download.png'),
+      mapPoints : [],
      }
    },
    methods: {
-     async getPrediction (){
+     getPrediction (){
       if(this.selected_neighborhood == ""){
          swal("Información incompleta", 'Seleccione al menos un barrio.', 'error')
        }else{
-        var body = {
-            city: this.selected_city,
-            neighborhood: this.selected_neighborhood,
-          }
-
-          await apiDengue.getPrediction(JSON.stringify(body)).then((response) => {
-              console.log(response)
-          })
+         this.neighborhood_to_predict = this.selected_neighborhood
        }
+     },
+
+     updateMap(numCases) {
+        var location = {}
+        var points = []
+        var viewport = {}
+        var auxCity = ""
+        if(this.selected_city === 'Buga') {
+          auxCity = 'Guadalajara de Buga'
+        }else{
+          auxCity = this.selected_city
+        }
+        apiDengue.getLocation(auxCity, this.neighborhood_to_predict).then((response) => {
+          try{
+            location = response.data.results[0].geometry.location
+            viewport = response.data.results[0].geometry.viewport
+
+            for(var i=0; i< numCases; i++){
+              var latVal = Math.random()*(viewport.northeast.lat-viewport.southwest.lat) + location.lat
+              var lngVal = Math.random()*(viewport.northeast.lng-viewport.southwest.lng) + location.lng
+              var newPoint = {lat:latVal, lng:lngVal}
+              points.push(newPoint)
+            }
+            this.mapPoints = points
+          }catch(err){
+              errorMessage += element[0]+", "
+              swal("Barrios no encontrados:",errorMessage, 'error')
+          }
+        });
      },
 
      citySelected (){

@@ -29,10 +29,8 @@ import apiDengue from "@/apiDengue";
 
 Vue.use(VueFusionCharts, FusionCharts, TimeSeries);
 
-
-
 export default {
-  props: ["City","Neighborhoods"],
+  props: ["City","Neighborhoods", "isPrediction"],
   name: "FChart",
   data() {
     return {
@@ -47,7 +45,7 @@ export default {
         },
         data: null,
         caption: {
-          text: "DATOS HISTÓRICOS"
+          text: ""
         },
         subcaption: {
           text: "Dengue"
@@ -67,34 +65,59 @@ export default {
 
     generateChart () {
       this.showChart = false
-       // In this Promise we will create our DataStore and using that we will create a custom DataTable which takes two
-      // parameters, one is data another is schema.
-      apiDengue.getCasesByCityNeighborhood(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
 
-        var data = response.data.data
-        const schema = [{
-          "name": "Time",
-          "type": "date",
-          "format": "%Y-%m-%d"
-        },
-        {
-          "name": "Type",
-          "type": "string"
-        },
-        {
-          "name": "Cases",
-          "type": "number"
-        }]
-        // First we are creating a DataStore
-        const fusionDataStore = new FusionCharts.DataStore();
-        // After that we are creating a DataTable by passing our data and schema as arguments
-        const fusionTable = fusionDataStore.createDataTable(data, schema);
-        // After that we simply mutated our timeseries datasource by attaching the above
-        // DataTable into its data property.
-        this.dataSource.data = fusionTable;
-        //this.forceRerender()
-        this.showChart = true
-      } );
+      if(this.isPrediction) {
+        apiDengue.getPrediction(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
+          var data = response.data.data[0]
+
+          this.$emit('update-map',response.data.data[1])
+          
+          const schema = [{
+            "name": "Time",
+            "type": "date",
+            "format": "%Y-%m-%d"
+          },
+          {
+            "name": "Type",
+            "type": "string"
+          },
+          {
+            "name": "Cases",
+            "type": "number"
+          }]
+          
+          const fusionDataStore = new FusionCharts.DataStore();
+          const fusionTable = fusionDataStore.createDataTable(data, schema); 
+          this.dataSource.data = fusionTable;
+          this.dataSource.caption.text = "PREDICCIONES"
+          this.showChart = true
+        } );
+      }else {
+        apiDengue.getCasesByCityNeighborhood(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
+          
+          var data = response.data.data
+          const schema = [{
+            "name": "Time",
+            "type": "date",
+            "format": "%Y-%m-%d"
+          },
+          {
+            "name": "Type",
+            "type": "string"
+          },
+          {
+            "name": "Cases",
+            "type": "number"
+          }]
+          
+          const fusionDataStore = new FusionCharts.DataStore();
+          const fusionTable = fusionDataStore.createDataTable(data, schema); 
+          this.dataSource.data = fusionTable;
+          this.dataSource.caption.text = "DATOS HISTÓRICOS"
+          this.showChart = true
+        } );
+      }
+      
     }
   },
 

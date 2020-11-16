@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
-from django.http import HttpResponse
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.ar_model import AutoReg
 from sklearn.metrics import mean_squared_error
 import datetime as datetime
-from django.views.decorators.csrf import csrf_exempt
+from datetime import timedelta
 
 
 class Data_Model:
@@ -26,8 +24,8 @@ class Data_Model:
         df['Age'] = df['Age'].astype(float)
         df.set_index('Id', inplace=True)
         self.dfBuga = df[df.City == 'Buga']
-        dfGiron = df[df.City == 'Girón']
-        dfYopal = df[df.City == 'Yopal']
+        self.dfGiron = df[df.City == 'Girón']
+        self.dfYopal = df[df.City == 'Yopal']
 
     def assign_zeros(self, nb_df) :
         day_delta = datetime.timedelta(days=1)
@@ -82,7 +80,7 @@ class Data_Model:
 
         # train autoregression
         window = optime_lags
-        model = AutoReg(train, lags=optime_lags)
+        model = AutoReg(train, lags=optime_lags, old_names=False)
         model_fit = model.fit()
         coef = model_fit.params
         
@@ -101,10 +99,10 @@ class Data_Model:
             history.append(obs)
         test = test[-max_prediciton_size:]
         predictions = predictions[0:max_prediciton_size]
-        rmse = np.sqrt(mean_squared_error(test, predictions))
+        #rmse = np.sqrt(mean_squared_error(test, predictions))
         real_cases = sum(i for i in test if i != 0) 
         number_of_predictions = sum(1 for i in predictions if i != 0) 
-        hits = self.calculate_hits(test, predictions)
+        #hits = self.calculate_hits(test, predictions)
         ans = [list(predictions), list(test), number_of_predictions, real_cases]
         return ans
         
@@ -116,9 +114,9 @@ class Data_Model:
                 df_neighborhood = self.dfBuga[self.dfBuga.Neighborhood == neigborhood]
                 flag = True
             elif(city == 'Yopal') :
-                df_neighborhood = dfYopal[dfBuga.Neighborhood == neigborhood]
+                df_neighborhood = self.dfYopal[self.dfYopal.Neighborhood == neigborhood]
             else :
-                df_neighborhood = dfGiron[dfBuga.Neighborhood == neigborhood]
+                df_neighborhood = self.dfGiron[self.dfGiron.Neighborhood == neigborhood]
             
             df_neighborhood = pd.DataFrame(df_neighborhood['Date'].value_counts().sort_index())
             df_neighborhood.columns = ['Cases']
@@ -126,12 +124,39 @@ class Data_Model:
             df_neighborhood = self.assign_zeros(df_neighborhood)
             df_neighborhood.set_index('Date',inplace=True)
             ans = self.AR(df_neighborhood, neigborhood, days_to_predict, lags, flag)
+
+            pred = ans[0]
+            test = ans[1]
+            number_of_predictions = ans[2]
+
+            day_delta = datetime.timedelta(days=1)
+
+            if(flag) :
+                start_date = datetime.date(2017, 1, 1)
+            else:
+                start_date = datetime.date(2016, 1, 1)
+
+            end_date = start_date + days_to_predict*day_delta
+            final_data = []
+
+            for i in range((end_date - start_date).days):
+                date = start_date + i*day_delta
+                date2 = date.strftime('%Y-%m-%d')
+                triple_pred = [date2, 'Predicciones', pred[i]]
+                triple_test = [date2, 'Realidad', test[i]]
+
+                final_data.append(triple_pred)
+                final_data.append(triple_test)
+                
+            
+            results = [final_data, number_of_predictions]
+
         except Exception as e:
         
             print("[-]",e)
-            ans = e
+            results = e
 
-        return ans
+        return results
 
 
     

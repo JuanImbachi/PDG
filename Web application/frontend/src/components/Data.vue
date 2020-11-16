@@ -70,7 +70,7 @@
       <v-card class="my-3">
         <v-row justify="space-around" align="center" >
           <v-col>
-              <chart-component  :City="city_to_search" :Neighborhoods="neighborhoods_to_search" />
+              <chart-component  :City="city_to_search" :Neighborhoods="neighborhoods_to_search" :isPrediction="false" />
           </v-col>
         </v-row>
       </v-card>
@@ -124,7 +124,10 @@
             </v-btn>
           </v-col>
         </v-row>
-        <map-component :mapCoords="mapCoords" :mapZoom="mapZoom" :mapPoints="mapPoints"></map-component>
+        <v-row justify='center'>
+          <map-component :mapCoords="mapCoords" :mapZoom="mapZoom" :mapPoints="mapPoints"></map-component>
+          <small class="mb-2">Ubicación sujeta al API de Google Maps</small>
+        </v-row> 
       </v-card>
     </v-container>
   </div>
@@ -211,8 +214,13 @@ export default {
           neighborhoodsCount.forEach(element => {
             var location = {}
             var viewport = {}
-            apiDengue.getLocation(this.city_to_search, element[0]).then((response) => {
-
+            var auxCity = ""
+            if(this.city_to_search === 'Buga') {
+              auxCity = 'Guadalajara de Buga'
+            }else{
+              auxCity = this.city_to_search
+            }
+            apiDengue.getLocation(auxCity, element[0]).then((response) => {
               try{
                 location = response.data.results[0].geometry.location
                 viewport = response.data.results[0].geometry.viewport

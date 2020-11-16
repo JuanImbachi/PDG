@@ -74,7 +74,7 @@ function getCasesCountByCityNeighborhoodYear(body){
 }
 
 function getLocation(neighborhood,city){
-  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${neighborhood},${city},Colombia&key=AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c`)
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${city},${neighborhood},Colombia&key=AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c`)
 }
 
 export default{
