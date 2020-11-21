@@ -23,8 +23,11 @@ function deleteCase(id) {
       'Authorization': 'Token '+ TokenService.getToken()
     }
   }
-  console.log(id, axiosConfig)
   return axios.delete(`${path}/api/dengueCases/${id}/`, axiosConfig)
+}
+
+function updateCSV() {
+  return axios.get(`${path}/api/updateCSV/`)
 }
 
 function getCasesByCity(body){
@@ -88,5 +91,6 @@ export default{
   deleteCase,
   getNeighborhoodsToPredict,
   getPrediction,
-  path
+  path,
+  updateCSV
 }

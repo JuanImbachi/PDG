@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken.views import obtain_auth_token
-from model.views import casesFilter, getNeighborhoodsByCity, getCasesByCityNeighborhood, getNumberCasesByNeighborhoodCityYear,getNeighborhoodsToPredict,getPrediction
+from model.views import casesFilter, getNeighborhoodsByCity, getCasesByCityNeighborhood, getNumberCasesByNeighborhoodCityYear,getNeighborhoodsToPredict,getPrediction, updateCSV
 
 
 urlpatterns = [   
@@ -28,6 +28,6 @@ urlpatterns = [
     url(r'^api/datesChart/', getCasesByCityNeighborhood),
     url(r'^api/casesCount/', getNumberCasesByNeighborhoodCityYear),
     url(r'^api/neighborhoods/predict/(?P<city_searched>\w+)/$', getNeighborhoodsToPredict),
-    url(r'^api/prediction/', getPrediction)
-
+    url(r'^api/prediction/', getPrediction),
+    url(r'^api/updateCSV/', updateCSV)
 ]

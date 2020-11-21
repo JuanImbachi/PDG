@@ -124,12 +124,22 @@ export default {
 
     },
 
+    updateCSV() {
+      apiDengue.updateCSV().then((response) => {
+        console.log('CSV ACTUALIZADO')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
     deleteItemConfirm () {
       apiDengue.deleteCase(this.editedItem.id).then((response) => {
         this.cases.splice(this.editedIndex, 1)
         this.$nextTick(() => {
           this.editedIndex = -1
         })
+        this.updateCSV()
         swal("¡Registrado eliminado exitosamente!", '', 'success')
       })
       .catch((error) =>{
@@ -142,6 +152,7 @@ export default {
       this.cases = []
       this.getCases()
       this.modal = !this.modal
+      this.updateCSV()
     }
   },
   created() {

@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from model.data_model import Data_Model
 import json
+from backend.db_connections import mysql_to_csv
 
 mymodel = Data_Model()
 
@@ -31,6 +32,20 @@ def casesFilter( request):
         "errMsg": e
         }
 
+    return HttpResponse(json.dumps(res), content_type="application/json")
+
+@csrf_exempt
+def updateCSV(request) :
+    try :
+        mysql_to_csv()
+        res = {
+            "code":200
+        }
+    except Exception as e:
+        res = {
+        "code": 0,
+        "errMsg": e
+        }
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 @csrf_exempt
