@@ -119,7 +119,7 @@
             </v-select>
           </v-col>
           <v-col>
-            <v-btn fab small outlined  color="primary" @click="getMapData" >
+            <v-btn fab small outlined color="primary" @click="getMapData" >
               <v-icon icon >mdi-magnify</v-icon>
             </v-btn>
           </v-col>
@@ -127,7 +127,7 @@
         <v-row justify='center'>
           <map-component :mapCoords="mapCoords" :mapZoom="mapZoom" :mapPoints="mapPoints"></map-component>
           <small class="mb-2">Ubicación sujeta al API de Google Maps</small>
-        </v-row> 
+        </v-row>
       </v-card>
     </v-container>
   </div>
@@ -195,9 +195,12 @@ export default {
      },
 
      async getMapData(){
-       if(this.neighborhoods_to_search.length == 0 || this.selected_years.length == 0){
-         swal("Información incompleta", 'Seleccione al menos un barrio y un año.', 'error')
-       }else{
+       if(this.neighborhoods_to_search.length == 0){
+         swal("Información incompleta", 'Primero debe filtrar por ciudad y barrio.', 'error')
+       }else if(this.selected_years.length == 0){
+         swal("Información incompleta", 'Seleccione al menos un año.', 'error')
+       }
+       else{
         var errorMessage = ''
         var body = {
             city: this.city_to_search,
