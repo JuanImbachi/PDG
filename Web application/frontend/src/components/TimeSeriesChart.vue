@@ -67,11 +67,12 @@ export default {
       this.showChart = false
 
       if(this.isPrediction) {
+        console.log("Prediction")
         apiDengue.getPrediction(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
           var data = response.data.data[0]
-
+          console.log(response)
           this.$emit('update-map',response.data.data[1])
-          
+
           const schema = [{
             "name": "Time",
             "type": "date",
@@ -85,16 +86,16 @@ export default {
             "name": "Cases",
             "type": "number"
           }]
-          
+
           const fusionDataStore = new FusionCharts.DataStore();
-          const fusionTable = fusionDataStore.createDataTable(data, schema); 
+          const fusionTable = fusionDataStore.createDataTable(data, schema);
           this.dataSource.data = fusionTable;
           this.dataSource.caption.text = "PREDICCIONES"
           this.showChart = true
         } );
       }else {
         apiDengue.getCasesByCityNeighborhood(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
-          
+
           var data = response.data.data
           const schema = [{
             "name": "Time",
@@ -109,15 +110,15 @@ export default {
             "name": "Cases",
             "type": "number"
           }]
-          
+
           const fusionDataStore = new FusionCharts.DataStore();
-          const fusionTable = fusionDataStore.createDataTable(data, schema); 
+          const fusionTable = fusionDataStore.createDataTable(data, schema);
           this.dataSource.data = fusionTable;
           this.dataSource.caption.text = "DATOS HISTÓRICOS"
           this.showChart = true
         } );
       }
-      
+
     }
   },
 
