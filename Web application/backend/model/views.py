@@ -55,16 +55,25 @@ def getPrediction(request):
 
         city_searched = obj['city']
         neighborhood_searched = obj['neighborhood']
-        prediction = mymodel.get_predictions(city_searched, neighborhood_searched, 900, 900)
-        res = {
-        "code": 200,
-        "data": list(prediction)
-        }
+
+        error,prediction = mymodel.get_predictions(city_searched, neighborhood_searched)
+
+        if(error):
+            res = {
+                "code": 200,
+                "data": list(prediction)
+            }
+        else:
+            res = {
+                "code": 500,
+                "data": prediction
+            }
     except Exception as e:
         res = {
-        "code": 0,
-        "errMsg": e
+            "code": 0,
+            "errMsg": e
         }
+
 
     return HttpResponse(json.dumps(res), content_type="application/json")
 
@@ -170,6 +179,7 @@ def getNumberCasesByNeighborhoodCityYear(request):
             "code": 200,
             "data":list(finalData)
             }
+
     except Exception as e:
         res = {
             "code": 0,

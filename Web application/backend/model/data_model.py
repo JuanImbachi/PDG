@@ -32,35 +32,26 @@ class Data_Model:
         start_date = datetime.date(2010, 1, 1)
         end_date = datetime.date(2020, 1, 1)
 
-        list_values = []
-        
+        lista = []
+
         for i in range((end_date - start_date).days):
             date = start_date + i*day_delta
             date2 = date.strftime('%Y-%m-%d')
-            try:
-                list_values.append(nb_df.at[date2,'Cases'])
-            except BaseException as e:
-                list_values.append(0)
+            try: 
+                lista.append(nb_df.at[date2,'Cases'])
+            except:  
+                lista.append(0)
                 
         final_model = pd.DataFrame(columns=('Date', 'Cases'))
 
         for i in range((end_date - start_date).days):
             date = start_date + i*day_delta
-            final_model.loc[len(final_model)]=[date, list_values[i]]
+            final_model.loc[len(final_model)]=[date, lista[i]]
             
         return final_model
 
-    def calculate_hits(self, test, predictions) :
-        hits = 0
-        for i in range(0, len(predictions)) :
-            x = test[i]
-            y = predictions[i]
-            if(x != 0 and y != 0) :
-                if(x == y) :
-                    hits += 1
-        return hits
 
-    def AR(self, series, nb_name, max_prediciton_size, optime_lags, flag) :
+    def AR(self, series, nb_name, max_prediciton_size, optime_lags, period_value, flag,) :
 
         if(flag):
             fecha_1 = datetime.date(2016, 12, 31)
@@ -80,7 +71,7 @@ class Data_Model:
 
         # train autoregression
         window = optime_lags
-        model = AutoReg(train, lags=optime_lags, old_names=False)
+        model = AutoReg(train, lags=optime_lags, seasonal=True, period=period_value)
         model_fit = model.fit()
         coef = model_fit.params
         
@@ -97,36 +88,108 @@ class Data_Model:
             obs = test[t]
             predictions.append(abs(np.round(float(yhat))))
             history.append(obs)
+
         test = test[-max_prediciton_size:]
         predictions = predictions[0:max_prediciton_size]
-        #rmse = np.sqrt(mean_squared_error(test, predictions))
         real_cases = sum(i for i in test if i != 0) 
         number_of_predictions = sum(1 for i in predictions if i != 0) 
-        #hits = self.calculate_hits(test, predictions)
+
         ans = [list(predictions), list(test), number_of_predictions, real_cases]
+        
         return ans
         
-    def get_predictions(self, city, neigborhood, days_to_predict, lags) :
+    def get_predictions(self, city, neigborhood) :
         ans = None
         try:
+            df_neighborhood = None
             flag = False
+            days_to_predict = 1
+            lags = 1
+            periods = 2
+
             if(city == 'Buga') :
+
                 df_neighborhood = self.dfBuga[self.dfBuga.Neighborhood == neigborhood]
                 flag = True
+
+                if(neigborhood == 'LA HONDA'):
+                    days_to_predict = 35
+                    lags = 500
+                    periods = 217
+
+                elif (neigborhood == 'FUENMAYOR'):
+                    days_to_predict = 45
+                    lags = 600
+                    periods = 214
+
+                elif (neigborhood == 'SANTA BARBARA'):
+                    days_to_predict = 40
+                    lags = 200
+                    periods = 298
+
+                elif (neigborhood == 'BALBOA'):
+                    days_to_predict = 35
+                    lags = 500
+                    periods = 214
+                
             elif(city == 'Yopal') :
                 df_neighborhood = self.dfYopal[self.dfYopal.Neighborhood == neigborhood]
+
+                if(neigborhood == 'ESPERANZA'):
+                    days_to_predict = 625
+                    lags = 200
+                    periods = 205
+                    
+                elif (neigborhood == '20 DE JULIO'):
+                    days_to_predict = 575
+                    lags = 200
+                    periods = 208
+
+                elif (neigborhood == 'BICENTENARIO'):
+                    days_to_predict = 1125
+                    lags = 200
+                    periods = 217
+
+                elif (neigborhood == 'VILLA NELLY'):
+                    days_to_predict = 725
+                    lags = 200
+                    periods = 238
             else :
                 df_neighborhood = self.dfGiron[self.dfGiron.Neighborhood == neigborhood]
+
+                if(neigborhood == 'EL POBLADO'):
+                    days_to_predict = 1425
+                    lags = 200
+                    periods = 427
+                    
+                elif (neigborhood == 'RINCON DE GIRON'):
+                    days_to_predict = 1425
+                    lags = 300
+                    periods = 202
+
+                elif (neigborhood == 'PORTAL CAMPESTRE'):
+                    days_to_predict = 1475
+                    lags = 250
+                    periods = 217
+
+                elif (neigborhood == 'BELLAVISTA'):
+                    days_to_predict = 1475
+                    lags = 350
+                    periods = 193
             
             df_neighborhood = pd.DataFrame(df_neighborhood['Date'].value_counts().sort_index())
+
             df_neighborhood.columns = ['Cases']
             df_neighborhood.index.name = 'Date'
+
             df_neighborhood = self.assign_zeros(df_neighborhood)
             df_neighborhood.set_index('Date',inplace=True)
-            ans = self.AR(df_neighborhood, neigborhood, days_to_predict, lags, flag)
+
+            ans = self.AR(df_neighborhood, neigborhood, days_to_predict, lags, periods, flag)
 
             pred = ans[0]
             test = ans[1]
+
             number_of_predictions = ans[2]
 
             day_delta = datetime.timedelta(days=1)
@@ -137,6 +200,7 @@ class Data_Model:
                 start_date = datetime.date(2016, 1, 1)
 
             end_date = start_date + days_to_predict*day_delta
+
             final_data = []
 
             for i in range((end_date - start_date).days):
@@ -148,15 +212,14 @@ class Data_Model:
                 final_data.append(triple_pred)
                 final_data.append(triple_test)
                 
-            
             results = [final_data, number_of_predictions]
-
+            return False, results
         except Exception as e:
         
             print("[-]",e)
             results = e
 
-        return results
+        return True, results
 
 
     
