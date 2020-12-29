@@ -67,10 +67,10 @@ export default {
       this.showChart = false
 
       if(this.isPrediction) {
-        console.log("Prediction")
+
         apiDengue.getPrediction(JSON.stringify({city: this.City, neighborhood: this.Neighborhoods})).then((response) =>{
           var data = response.data.data[0]
-          console.log(response)
+
           this.$emit('update-map',response.data.data[1])
 
           const schema = [{
