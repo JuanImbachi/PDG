@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "PDG frontend",
-  "author": "Juan Manuel Imbachí Güengue <juan.imbachi@correo.icesi.edu.co> Jamf99 <jorge.morales2@correo.icesi.edu.co>",
+  "author": "Juan Manuel Imbachí Güengue <juan.imbachi@correo.icesi.edu.co> Jorge Antonio Morales <jorge.morales2@correo.icesi.edu.co>",
   "scripts": {
     "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
