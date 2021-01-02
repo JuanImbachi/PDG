@@ -51,7 +51,7 @@ class Data_Model:
         return final_model
 
 
-    def AR(self, series, nb_name, max_prediciton_size, optime_lags, period_value, flag,) :
+    def AR(self, series, max_prediciton_size, optime_lags, period_value, flag,) :
 
         if(flag):
             fecha_1 = datetime.date(2016, 12, 31)
@@ -185,7 +185,7 @@ class Data_Model:
             df_neighborhood = self.assign_zeros(df_neighborhood)
             df_neighborhood.set_index('Date',inplace=True)
 
-            ans = self.AR(df_neighborhood, neigborhood, days_to_predict, lags, periods, flag)
+            ans = self.AR(df_neighborhood, days_to_predict, lags, periods, flag)
 
             pred = ans[0]
             test = ans[1]
