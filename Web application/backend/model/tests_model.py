@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from model.data_model import Data_Model
+from .models import DengueCase
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.ar_model import AutoReg
@@ -45,6 +46,9 @@ class TestModels(TestCase) :
         self.df_neighborhood.index.name = 'Date'
         self.df_neighborhood = Data_Model.assign_zeros(self, self.df_neighborhood)
         self.df_neighborhood.set_index('Date',inplace=True)
+
+    def setUp_db (self):
+        DengueCase.objects.create(City="Popayán", NotificationDate="2021-01-02", Age="21", Gender="M", Neighborhood="Las Mercedes", Commune="3")
 
     # BUGA TEST
     def test_Assign_Zeros_Buga_SantaBarbara (self):
@@ -186,8 +190,24 @@ class TestModels(TestCase) :
 
     # Add element to DB
     def test_Add_Element_DB (self) :
+        print("[+]", "test_Add_Element_DB")
+        try :
+            DengueCase.objects.create(City="Palmira", NotificationDate="2021-01-02", Age="21", Gender="M", Neighborhood="Las Mercedes", Commune="3")
+
+            self.assertEquals(DengueCase.objects.get(pk=1).City, "Palmira")
+        except :
+            self.fail("test_Add_Element_DB, FAILED")
 
     # Delete element from DB
     def test_Delete_Element_DB (self) :
-        
+        print("[+]", "test_Delete_Element_DB")
+        try :
+            self.setUp_db()
+            self.assertEquals(DengueCase.objects.get(pk=2).City, "Popayán")
 
+            case = DengueCase.objects.get(pk=2)
+            case.delete()
+
+            self.assertEquals(len(DengueCase.objects.all()), 0)
+        except :
+            self.fail("test_Delete_Element_DB, FAILED")
