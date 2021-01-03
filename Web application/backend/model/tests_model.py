@@ -48,7 +48,8 @@ class TestModels(TestCase) :
         self.df_neighborhood.set_index('Date',inplace=True)
 
     def setUp_db (self):
-        DengueCase.objects.create(City="Popayán", NotificationDate="2021-01-02", Age="21", Gender="M", Neighborhood="Las Mercedes", Commune="3")
+        DengueCase.objects.create(City="Buga", NotificationDate="2015-02-10",
+         Age="43", Gender="M", Neighborhood="SANTA BARBARA", Commune="5")
 
     # BUGA TEST
     def test_Assign_Zeros_Buga_SantaBarbara (self):
@@ -192,9 +193,10 @@ class TestModels(TestCase) :
     def test_Add_Element_DB (self) :
         print("[+]", "test_Add_Element_DB")
         try :
-            DengueCase.objects.create(City="Palmira", NotificationDate="2021-01-02", Age="21", Gender="M", Neighborhood="Las Mercedes", Commune="3")
+            DengueCase.objects.create(City="Buga", NotificationDate="2015-02-10",
+             Age="43", Gender="M", Neighborhood="SANTA BARBARA", Commune="5")
 
-            self.assertEquals(DengueCase.objects.get(pk=1).City, "Palmira")
+            self.assertEquals(DengueCase.objects.get(pk=1).City, "Buga")
         except :
             self.fail("test_Add_Element_DB, FAILED")
 
@@ -203,7 +205,7 @@ class TestModels(TestCase) :
         print("[+]", "test_Delete_Element_DB")
         try :
             self.setUp_db()
-            self.assertEquals(DengueCase.objects.get(pk=2).City, "Popayán")
+            self.assertEquals(DengueCase.objects.get(pk=2).City, "Buga")
 
             case = DengueCase.objects.get(pk=2)
             case.delete()
