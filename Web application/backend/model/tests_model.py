@@ -47,13 +47,10 @@ class TestModels(TestCase) :
         self.df_neighborhood = Data_Model.assign_zeros(self, self.df_neighborhood)
         self.df_neighborhood.set_index('Date',inplace=True)
 
-<<<<<<< HEAD
     def setUp_db (self):
         DengueCase.objects.create(City="Buga", NotificationDate="2015-02-10",
          Age="43", Gender="M", Neighborhood="SANTA BARBARA", Commune="5")
 
-=======
->>>>>>> 1c808b332e920bb49410834fddc48747abcacd02
     # BUGA TEST
     def test_Assign_Zeros_Buga_SantaBarbara (self):
         print("[+]", "test_Assign_Zeros_Buga_SantaBarbara")
@@ -196,13 +193,8 @@ class TestModels(TestCase) :
     def test_Add_Element_DB (self) :
         print("[+]", "test_Add_Element_DB")
         try :
-<<<<<<< HEAD
             DengueCase.objects.create(City="Buga", NotificationDate="2015-02-10",
              Age="43", Gender="M", Neighborhood="SANTA BARBARA", Commune="5")
-=======
-            DengueCase.objects.create(City="Palmira", NotificationDate="2021-01-02", 
-                Age="21", Gender="M", Neighborhood="Las Mercedes", Commune="3")
->>>>>>> 1c808b332e920bb49410834fddc48747abcacd02
 
             self.assertEquals(DengueCase.objects.get(pk=1).City, "Buga")
         except :
