@@ -201,11 +201,6 @@ class TestModels(TestCase) :
             self.fail("test_Add_Element_DB, FAILED")
 
     # Delete element from DB
-
-    def setUp_db (self):
-        DengueCase.objects.create(City="Popayán", NotificationDate="2021-01-02", Age="21", 
-            Gender="M", Neighborhood="Las Mercedes", Commune="3")
-
     def test_Delete_Element_DB (self) :
         print("[+]", "test_Delete_Element_DB")
         try :
