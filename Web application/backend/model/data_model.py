@@ -6,7 +6,7 @@ from statsmodels.tsa.ar_model import AutoReg
 from sklearn.metrics import mean_squared_error
 import datetime as datetime
 from datetime import timedelta
-
+import logging
 
 class Data_Model:
 
@@ -216,7 +216,7 @@ class Data_Model:
             return False, results
         except Exception as e:
         
-            print("[-]",e)
+            logging.error(e)
             results = e
 
         return True, results

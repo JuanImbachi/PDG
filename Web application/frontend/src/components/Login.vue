@@ -51,6 +51,7 @@
 <script>
 import axios from 'axios'
 import swal from 'sweetalert'
+import apiDengue from "@/apiDengue";
 
 export default {
   components: {
@@ -70,13 +71,9 @@ export default {
     }
   },
   methods: {
-    login () {
-      const path = 'http://127.0.0.1:8000/auth/'
+    async login () {
 
-      axios.post(path, {
-         username: this.email,
-         password: this.password,
-      })
+      await apiDengue.auth(this.email, this.password)
        .then((response) => {
          localStorage.setItem('user-token', response.data.token)
 

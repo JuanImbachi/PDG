@@ -1,2 +1,18 @@
+asgiref==3.3.1
+Django==3.1.5
+django-cors-headers==3.6.0
+django-pandas==0.6.2
+djangorestframework==3.12.2
+joblib==1.0.0
+numpy==1.19.5
+pandas==1.2.0
+patsy==0.5.1
 PyMySQL==0.10.1
-Django==1.11.29; python_version < '3.0'  # needs to stay under 2.0.0 for Python 2 support
+python-dateutil==2.8.1
+pytz==2020.5
+scikit-learn==0.24.0
+scipy==1.6.0
+six==1.15.0
+sqlparse==0.4.1
+statsmodels==0.12.1
+threadpoolctl==2.1.0

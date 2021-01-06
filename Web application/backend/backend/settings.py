@@ -40,6 +40,8 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,8 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'model',
-    'rest_framework',
-    'rest_framework.authtoken',
     'corsheaders',
 ]
 

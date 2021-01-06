@@ -1,8 +1,15 @@
 import axios from 'axios'
 import { TokenService } from '../src/storage/service'
 
-const path = 'http://127.0.0.1:8000'
+//const path = 'http://127.0.0.1:8000'
+const path = 'https://pdgmaps.rj.r.appspot.com'
 
+function auth (email, password){
+  return axios.post(`${path}/auth/`, {
+    username: email,
+    password: password,
+ })
+}
 function getCases () {
   return axios.get(`${path}/api/dengueCases/`)
 }
@@ -81,6 +88,7 @@ function getLocation(neighborhood,city){
 }
 
 export default{
+  auth,
   getCases,
   getCasesByCity,
   getNeighborhoodsByCity,
