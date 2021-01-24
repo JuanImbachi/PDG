@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2w6ipe62hndw$lwx^#*kq&h78*e2^b&cjelh-*%3mr$**a#r@j'
+SECRET_KEY = '[INSERT YOUR SECRET KEY]'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -96,7 +96,7 @@ if os.getenv('GAE_APPLICATION', None):
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/pdgmaps:us-central1:pdg',
             'USER': 'admin',
-            'PASSWORD': 'koepPluoqHNjcbe8',
+            'PASSWORD': '[INSERT YOUR DB PASSWORD]',
             'NAME': 'pdg'
         }
     }
@@ -108,7 +108,7 @@ else :
             'PORT': '3307',
             'NAME': 'pdg', 
             'USER': 'admin',
-            'PASSWORD': 'koepPluoqHNjcbe8',   
+            'PASSWORD': '[INSERT YOUR DB PASSWORD]',   
         }
     }
 

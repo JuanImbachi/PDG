@@ -3,6 +3,7 @@ import { TokenService } from '../src/storage/service'
 
 //const path = 'http://127.0.0.1:8000'
 const path = 'https://pdgmaps.rj.r.appspot.com'
+const apiMapKey = '[INSERT YOUR API KEY]'
 
 function auth (email, password){
   return axios.post(`${path}/auth/`, {
@@ -84,7 +85,7 @@ function getCasesCountByCityNeighborhoodYear(body){
 }
 
 function getLocation(neighborhood,city){
-  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${city},${neighborhood},Colombia&key=AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c`)
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${city},${neighborhood},Colombia&key=${apiMapKey}`)
 }
 
 export default{

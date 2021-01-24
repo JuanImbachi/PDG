@@ -6,7 +6,7 @@ import VueGoogleHeatmap from 'vue-google-heatmap';
 
 
 Vue.use(VueGoogleHeatmap,  {
-  apiKey: 'AIzaSyAg7Sa9QNBaUTcivKeUdoZmKCenigt_f1c'
+  apiKey: '[INSERT YOUR API KEY]'
 });
 
 Vue.config.productionTip = false
