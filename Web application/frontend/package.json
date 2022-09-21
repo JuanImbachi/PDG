@@ -20,7 +20,7 @@
     "vue-fusioncharts": "^3.0.4",
     "vue-google-heatmap": "^1.0.1",
     "vue-router": "^3.4.7",
-    "vuetify": "^2.3.14"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
